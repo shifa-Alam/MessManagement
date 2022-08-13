@@ -1,0 +1,21 @@
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col"><i class="fas fa-image"></i></th>
+      <th scope="col">Name</th>
+      <th scope="col">Mobile</th>
+      <th scope="col">Home District</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr   *ngFor="let member of members;let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td><i class="fas fa-image"></i></td>
+      <td>{{member.firstName}} {{member.lastName}}</td>
+      <td>{{member.mobileNo}}</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
