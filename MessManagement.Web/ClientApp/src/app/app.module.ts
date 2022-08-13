@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { MemberLandingComponent } from './member-landing/member-landing.component';
 import { MemberAddComponent } from './member-add/member-add.component';
 import { MemberDetailsComponent } from './member-details/member-details.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { MemberDetailsComponent } from './member-details/member-details.componen
       { path: 'members/details/:id', component: MemberDetailsComponent }
 
 
-    ])
+    ]),
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
