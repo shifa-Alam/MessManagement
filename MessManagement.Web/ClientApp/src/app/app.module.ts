@@ -12,7 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { MemberLandingComponent } from './member-landing/member-landing.component';
 import { MemberAddComponent } from './member-add/member-add.component';
 import { MemberDetailsComponent } from './member-details/member-details.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @NgModule({
   declarations: [
@@ -32,14 +32,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       //{ path: 'counter', component: CounterComponent },
-      //{ path: 'fetch-data', component: FetchDataComponent },
+      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'members', component: MemberLandingComponent },
       { path: 'members/add', component: MemberAddComponent },
       { path: 'members/details/:id', component: MemberDetailsComponent }
 
 
-    ]),
-    FontAwesomeModule
+    ])
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

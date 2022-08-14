@@ -9,6 +9,7 @@ export class FetchDataComponent {
   public forecasts: WeatherForecast[] = [];
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    console.log(baseUrl);
     http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
       this.forecasts = result;
     }, error => console.error(error));

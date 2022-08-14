@@ -18,14 +18,30 @@ namespace MessManagement.Web.Controllers
             _logger = logger;
         }
 
+        //[HttpGet]
+
+        //public IEnumerable<WeatherForecast> Get()
+        //{
+        //    return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        //    {
+        //        Date = DateTime.Now.AddDays(index),
+        //        TemperatureC = Random.Shared.Next(-20, 55),
+        //        Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+        //    })
+        //    .ToArray();
+        //}
+
+
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        //[Route("GetMembers")]
+        public IEnumerable<Member> GetMembers()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Enumerable.Range(1, 10).Select(index => new Member
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+                FirstName = "FirstName" + index,
+                LastName = "LastName" + index,
+                MobileNumber = "MobileNumber" + index,
+                EmergencyContact = "Emergency Contact" + index
             })
             .ToArray();
         }
