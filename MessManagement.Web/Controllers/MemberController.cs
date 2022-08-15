@@ -2,37 +2,51 @@
 
 namespace MessManagement.Web.Controllers
 {
-
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
+
     public class MemberController : Controller
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+        List<Member> members = new List<Member>();
 
         private readonly ILogger<MemberController> _logger;
 
         public MemberController(ILogger<MemberController> logger)
         {
             _logger = logger;
+            for (int index = 1; index < 10; index++)
+            {
+                Member member = new Member()
+                {
+
+                    Id = index,
+                    FirstName = "FirstName " + index,
+                    LastName = "LastName " + index,
+                    MobileNumber = "MobileNumber " + index,
+                    EmergencyContact = "Emergency Contact " + index,
+                    HomeDistrict = "HomeDistrict " + index,
+                    Active = true
+
+                };
+                members.Add(member);
+            }
         }
 
-    
+
 
         [HttpGet]
-        //[Route("GetMembers")]
+        [Route("GetMembers")]
         public IEnumerable<Member> GetMembers()
         {
-            return Enumerable.Range(1, 10).Select(index => new Member
-            {
-                FirstName = "FirstName " + index,
-                LastName = "LastName " + index,
-                MobileNumber = "MobileNumber " + index,
-                EmergencyContact = "Emergency Contact " + index
-            })
-            .ToArray();
+            
+            return members;
+        }
+        [HttpPost]
+        [Route("SaveMember")]
+        public IEnumerable<Member> SaveMember(Member member)
+        {
+            members.Add(member);
+            return members;
         }
     }
 }
