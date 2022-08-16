@@ -20,11 +20,11 @@ namespace MessManagement.Web.Controllers
                 {
 
                     Id = index,
-                    FirstName = "FirstName " + index,
-                    LastName = "LastName " + index,
-                    MobileNumber = "MobileNumber " + index,
+                    FirstName = "RAKIB ",
+                    LastName = "Hasan " + index,
+                    MobileNumber = "0192862387" + index,
                     EmergencyContact = "Emergency Contact " + index,
-                    HomeDistrict = "HomeDistrict " + index,
+                    HomeDistrict = "Dhaka-" + index,
                     Active = true
 
                 };

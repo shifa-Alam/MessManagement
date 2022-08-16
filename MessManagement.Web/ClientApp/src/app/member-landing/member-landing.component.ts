@@ -10,25 +10,18 @@ import { MemberService } from '../services/member.service';
 export class MemberLandingComponent implements OnInit {
 
   members: Member[] = [];
-
-  constructor(private service: MemberService) { }
+  displayedColumns: string[] = [];
+  color: string;
+  constructor(private service: MemberService) {
+    this.color = "orange";
+  }
 
   ngOnInit(): void {
+    this.setColumn();
     this.getMembers();
-
-    //for (var i = 1; i < 10; i++) {
-    //  let member: Member = new Member();
-    //  member.id = i;
-    //  member.firstName = "First Name" + i;
-    //  member.lastName = "Last name" + i;
-    //  member.mobileNo = "Mobile NO ..." + i;
-    //  this.members.push(member);
-    //}
-
-
-
-
-
+  }
+  setColumn() {
+    this.displayedColumns = ['id', 'name', 'mobile', 'district'];
   }
 
 
@@ -38,4 +31,6 @@ export class MemberLandingComponent implements OnInit {
     },
       error => console.error(error));
   }
+
+  clickedRows = new Set<Member>();
 }
