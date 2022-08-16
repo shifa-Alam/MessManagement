@@ -1,0 +1,57 @@
+<!-- 
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+    
+      <th scope="col">Name</th>
+      <th scope="col">Mobile</th>
+      <th scope="col">Home District</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let member of members;let i = index">
+      <th scope="row">{{i+1}}</th>
+     
+      <td>{{member.firstName}} {{member.lastName}}</td>
+      <td>{{member.mobileNumber}}</td>
+      <td>{{member.homeDistrict}}</td>
+    
+    </tr>
+  </tbody>
+</table> -->
+
+<table mat-table [dataSource]="members" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"> No. </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.firstName}}  {{element.lastName}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="mobile">
+    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"> Mobile </th>
+    <td mat-cell *matCellDef="let element"> {{element.mobileNumber}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="district">
+    <th mat-header-cell *matHeaderCellDef [style.background-color]="color"> Home District </th>
+    <td mat-cell *matCellDef="let element"> {{element.homeDistrict}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
