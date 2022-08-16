@@ -48,11 +48,10 @@
   </mat-toolbar>
 
   <mat-sidenav-container class="example-sidenav-container " [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav class="mat-elevation-z8"  [mode]="mobileQuery.matches ? 'over' : 'side'" opened [fixedInViewport]="mobileQuery.matches"
+    <mat-sidenav #snav  class="mat-elevation-z8"  [mode]="mobileQuery.matches ? 'over' : 'side'" opened [fixedInViewport]="mobileQuery.matches"
       fixedTopGap="56">
       <mat-nav-list>
-        <a mat-list-item [routerLinkActive]="['link-active']" routerLink="./{{nav}}" *ngFor="let nav of fillerNav">{{nav
-          | uppercase}}</a>
+        <a mat-list-item [routerLinkActive]="['link-active']" routerLink="./{{nav}}" *ngFor="let nav of fillerNav">{{nav| uppercase}}</a>
       </mat-nav-list>
     </mat-sidenav>
 
