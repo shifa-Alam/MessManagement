@@ -46,6 +46,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 
@@ -70,7 +71,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'members', component: MemberLandingComponent },
       { path: 'members/add', component: MemberAddComponent },
-      { path: 'members/details/:id', component: MemberDetailsComponent }
+      { path: 'members/details/:id', component: MemberDetailsComponent },
+      { path: '**', component:NotFoundComponent  }
 
 
     ]),
