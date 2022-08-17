@@ -39,9 +39,11 @@ export class MemberAddComponent implements OnInit {
   /* Date */
     date(e:any) {
       var convertDate = new Date(e.target.value).toISOString().substring(0, 10);
-      this.myForm.get('dob').setValue(convertDate, {
-        onlyself: true
-      })
+      // this.myForm.get('dob').setValue(convertDate, {
+      //   onlyself: true
+      // })
+
+       this.myForm.get().
     }
       /* Add dynamic languages */
   add(event: MatChipInputEvent): void {
