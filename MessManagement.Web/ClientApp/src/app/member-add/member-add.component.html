@@ -1,1 +1,65 @@
-<p>member-add works!</p>
+<form [formGroup]="myForm" (ngSubmit)="submitForm()" novalidate>
+    <!-- Name -->
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Name" formControlName="name" />
+    </mat-form-field>
+    <!-- Email -->
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Email" formControlName="email" />
+    </mat-form-field>
+    <!-- Gender -->
+    <div class="misc-bottom-padding">
+      <mat-label>Gender:</mat-label>
+      <mat-radio-group aria-label="Select an option" formControlName="gender">
+        <mat-radio-button value="Male">Male</mat-radio-button>
+        <mat-radio-button value="Female">Female</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <!-- Date picker -->
+    <mat-form-field>
+      <input
+        matInput
+        readonly
+        [matDatepicker]="picker"
+        placeholder="Date of birth"
+        formControlName="dob"
+        (dateChange)="date($event)"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <!-- Class -->
+    <mat-form-field>
+      <mat-label>Grade</mat-label>
+      <mat-select formControlName="grade">
+        <mat-option [value]="gradeArray" *ngFor="let gradeArray of GradeArray"
+          >{{ gradeArray }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- Add Subjects -->
+    <mat-form-field class="multiple-items">
+      <mat-chip-list #chipList>
+        <mat-chip
+          *ngFor="let subjectsArray of SubjectsArray"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(subjectsArray)"
+        >
+          {{ subjectsArray.name }}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="Add subjects"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)"
+        />
+      </mat-chip-list>
+    </mat-form-field>
+    <!-- Submit -->
+    <div class="button-wrapper">
+      <button mat-flat-button color="primary">Submit</button>
+    </div>
+  </form>
