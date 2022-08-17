@@ -14,7 +14,7 @@ namespace MessManagement.Web.Controllers
         public MemberController(ILogger<MemberController> logger)
         {
             _logger = logger;
-            for (int index = 1; index < 10; index++)
+            for (int index = 1; index < 100; index++)
             {
                 Member member = new Member()
                 {
