@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { MemberAddComponent } from '../member-add/member-add.component';
 import { Member } from '../Models/member';
 import { MemberService } from '../services/member.service';
 
@@ -55,7 +56,11 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
     }
   }
   add(){
-    
+    const dialogRef = this.dialog.open(MemberAddComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+    });
   }
   edit(member: any) {
     if (member != null) {

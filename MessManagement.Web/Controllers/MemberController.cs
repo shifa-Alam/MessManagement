@@ -61,7 +61,7 @@ namespace MessManagement.Web.Controllers
         public IActionResult DeleteMember(long id)
         {
             var member=members.Find(x => x.Id == id);
-            members.Remove(member);
+             members.Remove(member);
             return Ok(member);
         }
     }
