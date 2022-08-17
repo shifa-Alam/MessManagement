@@ -47,6 +47,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 
 
@@ -59,7 +60,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     FetchDataComponent,
     MemberLandingComponent,
     MemberAddComponent,
-    MemberDetailsComponent
+    MemberDetailsComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

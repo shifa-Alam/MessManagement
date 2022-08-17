@@ -1,4 +1,9 @@
 table {
     width: 100%;
   }
-  
+  .filter{
+    width: 100%;
+  }
+  .material-icons{
+    transform: scale(.8);
+  }

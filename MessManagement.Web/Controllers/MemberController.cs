@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Metrics;
 
 namespace MessManagement.Web.Controllers
 {
@@ -43,10 +44,25 @@ namespace MessManagement.Web.Controllers
         }
         [HttpPost]
         [Route("SaveMember")]
-        public IEnumerable<Member> SaveMember(Member member)
+        public IActionResult SaveMember(Member member)
         {
             members.Add(member);
-            return members;
+            return Ok();
+        }
+        [HttpPost]
+        [Route("UpdateMember")]
+        public IActionResult UpdateMember(Member member)
+        {
+            members.Add(member);
+            return Ok(member);
+        }
+        [HttpDelete]
+        [Route("DeleteMember")]
+        public IActionResult DeleteMember(long id)
+        {
+            var member=members.Find(x => x.Id == id);
+            members.Remove(member);
+            return Ok(member);
         }
     }
 }
