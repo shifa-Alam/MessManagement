@@ -35,7 +35,7 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
     this.getMembers();
   }
   setColumn() {
-    this.displayedColumns = ['id', 'name', 'mobile', 'district', 'action'];
+    this.displayedColumns = ['id','image', 'name', 'mobile', 'district', 'action'];
   }
 
   getMembers() {
@@ -82,10 +82,13 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
 
   delete(id: number) {
     if (id) {
-      const dialogRef = this.dialog.open(DeleteDialogComponent);
+      const dialogRef = this.dialog.open(DeleteDialogComponent,{
+        position: { top: '10px' },
+        // width:'20%'
+      });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
+       
         if (result) {
           this.service.deleteMember(id).subscribe(result => {
             console.log(result);
