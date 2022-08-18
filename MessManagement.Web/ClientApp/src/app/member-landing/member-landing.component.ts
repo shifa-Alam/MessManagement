@@ -56,10 +56,10 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
   }
   add() {
     const dialogRef = this.dialog.open(MemberAddComponent, {
-      height: 'auto',
-      width: '80%',
       position: { top: '10px' },
-      data:new Member()
+      data: {
+        member: new Member()
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -68,9 +68,9 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
   }
   edit(member: any) {
     const dialogRef = this.dialog.open(MemberAddComponent, {
-     
-      data:{
-        member:member
+      position: { top: '10px' },
+      data: {
+        member: member
       }
     });
 

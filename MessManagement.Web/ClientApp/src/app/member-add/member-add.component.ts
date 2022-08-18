@@ -19,7 +19,7 @@ export interface memberFormGroup {
 
 export class MemberAddComponent implements OnInit {
 
-  @Input() member: Member = new Member();
+  member: Member = new Member();
   memberForm!: FormGroup<memberFormGroup>;
 
   constructor(
@@ -37,6 +37,14 @@ export class MemberAddComponent implements OnInit {
     this.createMemberForm();
     this.setValue();
   }
+  createMemberForm() {
+    this.memberForm = new FormGroup<memberFormGroup>({
+      firstName: new FormControl<string>('', { nonNullable: true,validators:[Validators.required]}),
+      lastName: new FormControl<string>('', { nonNullable: false }),
+      mobileNumber: new FormControl<string>('', { nonNullable: true,validators:[Validators.required] }),
+      homeDistrict: new FormControl<string>('')
+    });
+  }
   setValue() {
     if (this.member) {
       this.memberForm.patchValue({
@@ -47,18 +55,12 @@ export class MemberAddComponent implements OnInit {
       })
     }
   }
-  createMemberForm() {
-    this.memberForm = new FormGroup<memberFormGroup>({
-      firstName: new FormControl<string>('', { nonNullable: true }),
-      lastName: new FormControl<string>('', { nonNullable: false }),
-      mobileNumber: new FormControl<string>('', { nonNullable: true }),
-      homeDistrict: new FormControl<string>('')
-    });
-  }
+ 
   cancel() {
     this.dialogRef.close();
   }
   submit() {
+    console.log(this.memberForm);
     this.member.firstName = this.memberForm.value.firstName as string;
     this.member.lastName = this.memberForm.value.lastName as string;
     this.member.mobileNumber = this.memberForm.value.mobileNumber as string;
