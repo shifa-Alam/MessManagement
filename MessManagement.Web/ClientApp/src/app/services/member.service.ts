@@ -21,7 +21,9 @@ export class MemberService extends BaseService {
   public getMember(): Observable<any> {
     return super.getRequest(subUrl+"GetMembers");
   }
-
+  saveMember(member: Member):Observable<any> {
+    return super.postRequest(subUrl+"SaveMember",member);
+  }
   updateMember(member: Member):Observable<any> {
     return super.postRequest(subUrl+"UpdateMember",member);
   }

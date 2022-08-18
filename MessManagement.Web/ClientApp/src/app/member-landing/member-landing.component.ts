@@ -41,7 +41,6 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
   getMembers() {
     this.service.getMember().subscribe(result => {
       this.members = result;
-
       this.dataSource = new MatTableDataSource(this.members);
     },
       error => console.error(error));
@@ -55,20 +54,30 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  add(){
-    const dialogRef = this.dialog.open(MemberAddComponent);
+  add() {
+    const dialogRef = this.dialog.open(MemberAddComponent, {
+      height: 'auto',
+      width: '80%',
+      position: { top: '10px' },
+      data:new Member()
+    });
 
     dialogRef.afterClosed().subscribe(result => {
-      
+
     });
   }
   edit(member: any) {
-    if (member != null) {
-      this.service.updateMember(member).subscribe(result => {
-        console.log(result);
-      },
-        error => console.error(error));
-    }
+    const dialogRef = this.dialog.open(MemberAddComponent, {
+     
+      data:{
+        member:member
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+
   }
 
   delete(id: number) {
