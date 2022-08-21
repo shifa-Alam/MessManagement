@@ -35,7 +35,7 @@ namespace MessManagement.Web.Controllers
             m.FirstName = memberIn.FirstName;
             m.LastName = memberIn.LastName;
             m.MobileNumber = memberIn.MobileNumber;
-
+            m.HomeDistrict = memberIn.HomeDistrict;
 
             var member = _memberService.Save(m);
             return Ok(member);
@@ -45,9 +45,11 @@ namespace MessManagement.Web.Controllers
         public IActionResult UpdateMember(MemberInputModel memberIn)
         {
             Member m = new Member();
+            m.Id= memberIn.Id;
             m.FirstName = memberIn.FirstName;
             m.LastName = memberIn.LastName;
             m.MobileNumber = memberIn.MobileNumber;
+            m.HomeDistrict=memberIn.HomeDistrict;
 
 
             var member = _memberService.Update(m);

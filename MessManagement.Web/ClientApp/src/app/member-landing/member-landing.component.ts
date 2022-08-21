@@ -63,7 +63,7 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+      this.getMembers();
     });
   }
   edit(member: any) {
@@ -75,7 +75,7 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+      this.getMembers();
     });
 
   }

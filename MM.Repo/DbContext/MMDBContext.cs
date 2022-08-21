@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 
 namespace MM.Repo
 {
-    public  class MMDBContext : DbContext
+    public class MMDBContext : DbContext
     {
 
-        public MMDBContext()
+       
+        public MMDBContext(DbContextOptions<MMDBContext> options): base(options)
         {
-
+            //* Intentionally empty            
         }
         //entities
         public DbSet<Member> Members { get; set; }
@@ -28,7 +29,7 @@ namespace MM.Repo
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }
-       
-       
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MM.Core.Entities;
+using MM.Core.Infra.Repos;
 using MM.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -10,22 +11,25 @@ namespace MM.bll.Services
 {
     public class MemberService : IMemberService
     {
-       
-
+        private IMemberRepo _memberRepo;
+        public MemberService(IMemberRepo memberRepo)
+        {
+            _memberRepo = memberRepo;
+        }
         public Member Save(Member member)
         {
-          return member;
+            member.Active = true;
+            member.CreatedDate=DateTime.Now;
+          return _memberRepo.Save(member);
         }
-
-     
 
         public Member Update(Member member)
         {
-            return member;
+            return _memberRepo.Update(member);
         }
         public void DeleteById(long id)
         {
-            
+            _memberRepo.Delete(id);
         }
         public Member SoftDelete(Member member)
         {
@@ -34,27 +38,12 @@ namespace MM.bll.Services
 
         public Member FindById(long id)
         {
-            return null;
+            return _memberRepo.FindById(id);
         }
 
         public IEnumerable<Member> Get()
-        {
-            List<Member> list = new List<Member>();
-            for (int i = 1; i < 20; i++)
-            {
-                var member = new Member()
-                {
-                    Id = i,
-                    FirstName = "Rakib " + i,
-                    LastName = "Hasan " + i,
-                    MobileNumber="0192863387"+i,
-                    HomeDistrict="Dhaka "+i
-
-
-                };
-                list.Add(member);
-            }
-            return list;
+        {          
+            return _memberRepo.Get();
         }
     }
 }

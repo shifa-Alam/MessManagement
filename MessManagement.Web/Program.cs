@@ -2,6 +2,7 @@ using MessManagement.Web.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MM.bll.Services;
+using MM.Core.Infra.Repos;
 using MM.Core.Services;
 using MM.Repo;
 
@@ -18,6 +19,8 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IMemberService,MemberService>();
+builder.Services.AddScoped<IMemberRepo, MemberRepo>();
+
 
 //builder.Services.AddMvc()
 //                .AddApplicationPart(typeof(WeatherForecastController).Assembly)
