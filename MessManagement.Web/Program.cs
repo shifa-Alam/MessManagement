@@ -3,8 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MM.bll.Services;
 using MM.Core.Services;
+using MM.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<MMDBContext>(x => x.UseSqlServer(connectionString));
 
 // Add services to the container.
 
