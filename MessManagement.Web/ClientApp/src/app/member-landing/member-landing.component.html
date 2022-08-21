@@ -1,14 +1,14 @@
-<!-- <mat-form-field appearance="standard" class="filter">
-  <mat-label>Filter</mat-label>
-  <input matInpt (keyup)="applyFilter($event)" placeholder="Type Here" #input>
-</mat-form-field> -->
 
 
-<div style="width: 100%;">
-  <div style="width: 50%;">
+<div class="row">
+  <div class="col-10">
+      <mat-form-field class="example-full-width">
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filter"  />
+      </mat-form-field>
   </div>
-  <div align="end">
-    <button mat-mini-fab color="primary" (click)="add()">
+  
+  <div class="col-2"  style="padding-top: 15px;">
+    <button mat-mini-fab color="primary" (click)="add()" >
       <mat-icon>add</mat-icon>
     </button>
   </div>
