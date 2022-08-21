@@ -91,7 +91,7 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
        
         if (result) {
           this.service.deleteMember(id).subscribe(result => {
-            console.log(result);
+            this.getMembers();
           },
             error => console.error(error));
         }
