@@ -1,4 +1,4 @@
-namespace MessManagement.Web
+namespace MM.Core.Entities
 {
     public class BaseEntity
     {

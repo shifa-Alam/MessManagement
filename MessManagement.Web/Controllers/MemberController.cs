@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MM.Core.Entities;
+using MM.Core.Models;
+using MM.Core.Services;
 using System.Diagnostics.Metrics;
+using System.Reflection;
 
 namespace MessManagement.Web.Controllers
 {
@@ -8,61 +12,79 @@ namespace MessManagement.Web.Controllers
 
     public class MemberController : Controller
     {
-        List<Member> members = new List<Member>();
+        List<MemberInputModel> members = new List<MemberInputModel>();
 
         private readonly ILogger<MemberController> _logger;
+        private readonly IMemberService _memberService;
 
-        public MemberController(ILogger<MemberController> logger)
+
+
+        public MemberController(ILogger<MemberController> logger, IMemberService memberService)
         {
             _logger = logger;
-            for (int index = 1; index < 100; index++)
-            {
-                Member member = new Member()
-                {
-
-                    Id = index,
-                    FirstName = "RAKIB ",
-                    LastName = "Hasan " + index,
-                    MobileNumber = "0192862387" + index,
-                    EmergencyContact = "Emergency Contact " + index,
-                    HomeDistrict = "Dhaka-" + index,
-                    Active = true
-
-                };
-                members.Add(member);
-            }
+            _memberService = memberService;
         }
 
 
 
-        [HttpGet]
-        [Route("GetMembers")]
-        public IEnumerable<Member> GetMembers()
-        {
-            
-            return members;
-        }
         [HttpPost]
         [Route("SaveMember")]
-        public IActionResult SaveMember(Member member)
+        public IActionResult SaveMember(MemberInputModel memberIn)
         {
-            members.Add(member);
-            return Ok();
+            Member m = new Member();
+            m.FirstName = memberIn.FirstName;
+            m.LastName = memberIn.LastName;
+            m.MobileNumber = memberIn.MobileNumber;
+
+
+            var member = _memberService.Save(m);
+            return Ok(member);
         }
         [HttpPost]
         [Route("UpdateMember")]
-        public IActionResult UpdateMember(Member member)
+        public IActionResult UpdateMember(MemberInputModel memberIn)
         {
-            members.Add(member);
+            Member m = new Member();
+            m.FirstName = memberIn.FirstName;
+            m.LastName = memberIn.LastName;
+            m.MobileNumber = memberIn.MobileNumber;
+
+
+            var member = _memberService.Update(m);
             return Ok(member);
         }
         [HttpDelete]
         [Route("DeleteMember")]
         public IActionResult DeleteMember(long id)
         {
-            var member=members.Find(x => x.Id == id);
-             members.Remove(member);
-            return Ok(member);
+            _memberService.DeleteById(id);
+
+            return Ok();
+        }
+
+
+
+        [HttpGet]
+        [Route("FindById")]
+        public IActionResult FindById( long id)
+        {
+
+            var members = _memberService.FindById(id);
+            return Ok(members);
+
+        }
+
+
+
+
+        [HttpGet]
+        [Route("GetMembers")]
+        public IActionResult GetMembers()
+        {
+
+            var members = _memberService.Get();
+            return Ok(members);
+
         }
     }
 }
