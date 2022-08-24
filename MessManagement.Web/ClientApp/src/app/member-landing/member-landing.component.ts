@@ -21,6 +21,7 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
   members: Member[] = [];
   displayedColumns: string[] = [];
   color: string;
+  isLoading: boolean = false;
 
   constructor(private service: MemberService, public dialog: MatDialog) {
     this.color = "orange";
@@ -35,15 +36,21 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
     this.getMembers();
   }
   setColumn() {
-    this.displayedColumns = ['id','image', 'name', 'mobile', 'district', 'action'];
+    this.displayedColumns = ['id', 'image', 'name', 'mobile', 'district', 'action'];
   }
 
   getMembers() {
+    this.isLoading = true;
     this.service.getMember().subscribe(result => {
       this.members = result;
       this.dataSource = new MatTableDataSource(this.members);
+      this.isLoading = false;
     },
-      error => console.error(error));
+      error => {
+        console.error(error);
+        this.isLoading = false;
+      }
+    );
   }
 
   applyFilter(event: Event) {
@@ -82,13 +89,13 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
 
   delete(id: number) {
     if (id) {
-      const dialogRef = this.dialog.open(DeleteDialogComponent,{
+      const dialogRef = this.dialog.open(DeleteDialogComponent, {
         position: { top: '10px' },
         // width:'20%'
       });
 
       dialogRef.afterClosed().subscribe(result => {
-       
+
         if (result) {
           this.service.deleteMember(id).subscribe(result => {
             this.getMembers();
