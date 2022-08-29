@@ -20,6 +20,7 @@ namespace MM.Repo
         }
         //entities
         public DbSet<Member> Members { get; set; }
+        public DbSet<Meal> Meals { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

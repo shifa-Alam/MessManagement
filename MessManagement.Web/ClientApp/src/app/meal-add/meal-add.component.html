@@ -1,0 +1,32 @@
+<form [formGroup]="mealForm">
+    <div class="row">
+        <div class="col-4">
+            <h4>mat-select</h4>
+            <mat-form-field appearance="fill">
+                <mat-label>Member</mat-label>
+                <mat-select formControlName="memberId" name="member">
+                    <mat-option *ngFor="let member of members" [value]="member.id">
+                        {{member.firstName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-4">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="quantity" type="number" formControlName="quantity" />
+            </mat-form-field>
+        </div>
+        <div class="col-4">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Date" type="date" formControlName="mealDate" />
+            </mat-form-field>
+        </div>
+    </div>
+
+
+    <div class="button-wrapper" align="end">
+
+        <button mat-flat-button color="warn" (click)="cancel()">Cancel</button> &nbsp;
+        <button mat-flat-button color="primary" (click)="submit()" [disabled]="mealForm.invalid">Submit</button>
+    </div>
+</form>

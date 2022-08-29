@@ -1,5 +1,6 @@
-export class Member {
-  id: number = 0;
+import { BaseEntity } from "./baseEntity";
+
+export class Member  extends BaseEntity{
   firstName: string = '';
   lastName?: string = '';
   mobileNumber: string = '';

@@ -5,11 +5,18 @@ using MM.bll.Services;
 using MM.Core.Infra.Repos;
 using MM.Core.Services;
 using MM.Repo;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<MMDBContext>(x => x.UseSqlServer(connectionString));
+
+builder.Services.AddDbContextPool<MMDBContext>(options =>
+ options.UseLazyLoadingProxies()
+ .UseSqlServer(connectionString));
+
+
+//builder.Services.AddDbContext<MMDBContext>(x => x.UseSqlServer(connectionString));
 
 // Add services to the container.
 
@@ -18,8 +25,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IMemberService,MemberService>();
+builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IMemberRepo, MemberRepo>();
+
+builder.Services.AddScoped<IMealService, MealService>();
+builder.Services.AddScoped<IMealRepo, MealRepo>();
 
 
 //builder.Services.AddMvc()

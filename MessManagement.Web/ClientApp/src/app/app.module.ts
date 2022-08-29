@@ -48,6 +48,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { MealAddComponent } from './meal-add/meal-add.component';
+import { MealLandingComponent } from './meal-landing/meal-landing.component';
+import { BazarLandingComponent } from './bazar-landing/bazar-landing.component';
+import { BazarAddComponent } from './bazar-add/bazar-add.component';
 
 
 
@@ -61,7 +65,11 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     MemberLandingComponent,
     MemberAddComponent,
     MemberDetailsComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    MealAddComponent,
+    MealLandingComponent,
+    BazarLandingComponent,
+    BazarAddComponent
   ],
   imports: [
 
@@ -76,6 +84,13 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
       { path: 'members', component: MemberLandingComponent },
       { path: 'members/add', component: MemberAddComponent },
       { path: 'members/details/:id', component: MemberDetailsComponent },
+
+      { path: 'meals', component: MealLandingComponent },
+      { path: 'meals/add', component: MealAddComponent },
+      
+      { path: 'expences', component: BazarLandingComponent },
+      { path: 'expences/add', component: BazarAddComponent },
+      
       { path: '**', component: NotFoundComponent }
 
 
