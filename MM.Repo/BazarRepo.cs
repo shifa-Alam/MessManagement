@@ -9,31 +9,31 @@ using System.Threading.Tasks;
 
 namespace MM.Repo
 {
-    public class MealRepo : IMealRepo
+    public class BazarRepo : IBazarRepo
     {
         private readonly MMDBContext     _mmDbContext;
 
-        public MealRepo(MMDBContext mmDbContext)
+        public BazarRepo(MMDBContext mmDbContext)
         {
             _mmDbContext = mmDbContext;
         }
 
-        public Meal Save(Meal Meal)
+        public Bazar Save(Bazar Bazar)
         {
-            var result = _mmDbContext.Meals.Add(Meal);
+            var result = _mmDbContext.Bazars.Add(Bazar);
             _mmDbContext.SaveChanges();
             return result.Entity;
         }
 
-        public Meal Update(Meal m)
+        public Bazar Update(Bazar m)
         {
-            var result = _mmDbContext.Meals
+            var result = _mmDbContext.Bazars
                     .FirstOrDefault(e => e.Id == m.Id);
 
             if (result != null)
             {
-                result.Quantity = m.Quantity;
-                result.MealDate = m.MealDate;
+                result.Amount = m.Amount;
+                result.BazarDate = m.BazarDate;
                 result.ModifiedDate = DateTime.Now;
 
                 _mmDbContext.SaveChanges();
@@ -45,26 +45,26 @@ namespace MM.Repo
         }
         public void Delete(long id)
         {
-            var result =  _mmDbContext.Meals
+            var result =  _mmDbContext.Bazars
                  .FirstOrDefault(e => e.Id == id);
             if (result != null)
             {
-                _mmDbContext.Meals.Remove(result);
+                _mmDbContext.Bazars.Remove(result);
                  _mmDbContext.SaveChangesAsync();
             }
 
         }
 
-        public Meal FindById(long id)
+        public Bazar FindById(long id)
         {
-            var Meal = _mmDbContext.Meals.Find(id);
-            return Meal;
+            var Bazar = _mmDbContext.Bazars.Find(id);
+            return Bazar;
         }
 
-        public IEnumerable<Meal> Get()
+        public IEnumerable<Bazar> Get()
         {
             
-           return _mmDbContext.Meals.Include(e=>e.Member).ToList();
+           return _mmDbContext.Bazars.Include(e=>e.Member).ToList();
         }
 
        

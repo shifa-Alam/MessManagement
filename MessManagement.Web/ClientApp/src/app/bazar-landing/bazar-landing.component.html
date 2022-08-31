@@ -1,1 +1,67 @@
-<p>bazar-landing works!</p>
+
+
+<div class="row">
+    <div class="col-10">
+        <mat-form-field class="example-full-width">
+          <input matInput (keyup)="applyFilter($event)" placeholder="Filter"  />
+        </mat-form-field>
+    </div>
+    
+    <div class="col-2"  style="padding-top: 15px;">
+      <button mat-mini-fab color="primary" (click)="add()" >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+  <table mat-table [dataSource]="dataSource">
+  
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Sr. No</th>
+      <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
+    </ng-container>
+   
+   
+    <ng-container matColumnDef="bazarDate">
+        <th mat-header-cell *matHeaderCellDef> Bazar Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.bazarDate | date}} </td>
+      </ng-container>
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef>Pic</th>
+        <td mat-cell *matCellDef="let i=index"> <img src="../../assets/images/person-5.png"  style="width:30px; height:30px;" > </td>
+      </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="memberName">
+      <th mat-header-cell *matHeaderCellDef> Member </th>
+      <td mat-cell *matCellDef="let element"> {{element.memberFirstName}} {{element.memberLastName}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef> Amount </th>
+      <td mat-cell *matCellDef="let element"> {{element.amount | currency:'Tk '}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="primary" (click)="edit(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+  
+        <button mat-icon-button color="warn" (click)="delete(element.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  

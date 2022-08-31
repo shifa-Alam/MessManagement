@@ -9,10 +9,10 @@ namespace MM.Core.Services
 {
     public  interface IMealService
     {
-        public Meal Save(Meal meal);
-        public Meal Update(Meal meal);
+        public Meal Save(Meal entity);
+        public Meal Update(Meal entity);
         public void DeleteById(long id);
-        public Meal SoftDelete(Meal meal);
+        public Meal SoftDelete(Meal entity);
         public Meal FindById(long id);
         public IEnumerable<Meal> Get();
     }

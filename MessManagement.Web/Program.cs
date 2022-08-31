@@ -11,12 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContextPool<MMDBContext>(options =>
- options.UseLazyLoadingProxies()
- .UseSqlServer(connectionString));
+//builder.Services.AddDbContextPool<MMDBContext>(options =>
+// options.UseLazyLoadingProxies()
+// .UseSqlServer(connectionString));
 
 
-//builder.Services.AddDbContext<MMDBContext>(x => x.UseSqlServer(connectionString));
+builder.Services.AddDbContext<MMDBContext>(x => x.UseSqlServer(connectionString));
 
 // Add services to the container.
 
@@ -30,7 +30,8 @@ builder.Services.AddScoped<IMemberRepo, MemberRepo>();
 
 builder.Services.AddScoped<IMealService, MealService>();
 builder.Services.AddScoped<IMealRepo, MealRepo>();
-
+builder.Services.AddScoped<IBazarService, BazarService>();
+builder.Services.AddScoped<IBazarRepo, BazarRepo>();
 
 //builder.Services.AddMvc()
 //                .AddApplicationPart(typeof(WeatherForecastController).Assembly)

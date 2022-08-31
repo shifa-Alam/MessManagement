@@ -36,7 +36,7 @@ export class MealLandingComponent implements OnInit, AfterViewInit {
     this.getMeals();
   }
   setColumn() {
-    this.displayedColumns = ['id', 'memberName','quantity', 'mealDate', 'action'];
+    this.displayedColumns = ['id', 'mealDate', 'image', 'memberName', 'quantity', 'action'];
   }
 
   getMeals() {

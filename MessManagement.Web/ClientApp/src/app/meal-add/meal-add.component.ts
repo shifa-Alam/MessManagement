@@ -56,7 +56,7 @@ export class MealAddComponent implements OnInit {
     this.mealForm = new FormGroup<mealFormGroup>({
       memberId: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
       quantity: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
-      mealDate: new FormControl<any>({ nonNullable: true, validators: [Validators.required] })
+      mealDate: new FormControl<Date>(new Date(),{ nonNullable: true, validators: [Validators.required] })
     });
   }
   setValue() {

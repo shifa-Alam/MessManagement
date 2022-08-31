@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MM.Core.Infra.Repos
 {
-    public interface IMealRepo
+    public interface IBazarRepo
     {
-        public Meal Save(Meal entity);
-        public Meal Update(Meal entity);
+        public Bazar Save(Bazar entity);
+        public Bazar Update(Bazar m);
         public void Delete(long id);
-        public Meal FindById(long id);
-        public IEnumerable<Meal> Get();
+        public Bazar FindById(long id);
+        public IEnumerable<Bazar> Get();
     }
 }

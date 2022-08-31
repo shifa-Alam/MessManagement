@@ -15,6 +15,9 @@ import { MemberDetailsComponent } from './member-details/member-details.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
+
+
+
 //Angular Material Components
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
@@ -46,12 +49,16 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+
+
+
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { MealAddComponent } from './meal-add/meal-add.component';
 import { MealLandingComponent } from './meal-landing/meal-landing.component';
 import { BazarLandingComponent } from './bazar-landing/bazar-landing.component';
 import { BazarAddComponent } from './bazar-add/bazar-add.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -96,7 +103,6 @@ import { BazarAddComponent } from './bazar-add/bazar-add.component';
 
     ]),
     BrowserAnimationsModule,
-
     BrowserModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
@@ -128,7 +134,8 @@ import { BazarAddComponent } from './bazar-add/bazar-add.component';
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatNativeDateModule
 
   ],
   providers: [],
