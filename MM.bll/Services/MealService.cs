@@ -12,9 +12,13 @@ namespace MM.bll.Services
     public class MealService : IMealService
     {
         private IMealRepo _mealRepo;
-        public MealService(IMealRepo mealRepo)
+        private IMemberRepo _memberRepo;
+        private IBazarRepo _bazarRepo;
+        public MealService(IMealRepo mealRepo, IMemberRepo memberRepo, IBazarRepo bazarRepo)
         {
             _mealRepo = mealRepo;
+            _memberRepo = memberRepo;
+            _bazarRepo = bazarRepo;
         }
         public Meal Save(Meal meal)
         {
@@ -45,5 +49,9 @@ namespace MM.bll.Services
         {
             return _mealRepo.Get();
         }
+
+
+
+
     }
 }

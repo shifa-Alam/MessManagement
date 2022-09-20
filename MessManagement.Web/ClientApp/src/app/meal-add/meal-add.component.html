@@ -4,6 +4,7 @@
             <mat-form-field appearance="fill">
                 <mat-label>Member</mat-label>
                 <mat-select formControlName="memberId" name="member">
+                    <mat-option disabled="true"> Pick One</mat-option>
                     <mat-option *ngFor="let member of members" [value]="member.id">
                         {{member.firstName}} {{member.lastName}}
                     </mat-option>
@@ -12,20 +13,20 @@
         </div>
         <div class="col-4">
             <mat-form-field class="example-full-width">
+                <mat-label>Quantity</mat-label>
                 <input matInput placeholder="Quantity" type="number" formControlName="quantity" />
             </mat-form-field>
         </div>
         <div class="col-4">
-            <mat-form-field class="example-full-width">
-                <!-- <input matInput placeholder="Date" type="date" formControlName="mealDate" /> -->
-
-                <!-- <mat-label>Choose a date</mat-label> -->
-                <input matInput [matDatepicker]="picker" formControlName="mealDate">
+           
+            <mat-form-field appearance="fill">
+                <mat-label>Meal Date</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="mealDate" value="mealDate">
                 <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-
-            </mat-form-field>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+              
         </div>
     </div>
 

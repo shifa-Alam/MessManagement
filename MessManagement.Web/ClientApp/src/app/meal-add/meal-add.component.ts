@@ -22,6 +22,7 @@ export class MealAddComponent implements OnInit {
   isLoading: boolean = false;
   members: Member[] = [];
   selectedMemberId: number = 0;
+  mealDate = new Date(new Date("Fri Jan 20 2012 11:51:36 GMT+0600").toUTCString()); 
   constructor(
     public service: MealService,
     public fb: FormBuilder,
@@ -56,15 +57,16 @@ export class MealAddComponent implements OnInit {
     this.mealForm = new FormGroup<mealFormGroup>({
       memberId: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
       quantity: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
-      mealDate: new FormControl<Date>(new Date(),{ nonNullable: true, validators: [Validators.required] })
+      mealDate: new FormControl<any>((this.mealDate),{ nonNullable: true, validators: [Validators.required] })
     });
   }
+
   setValue() {
     if (this.meal) {
       this.mealForm.patchValue({
         memberId:this.meal.memberId,
         quantity: this.meal.quantity,
-        mealDate: this.meal.mealDate as string
+        mealDate: this.meal.mealDate
       })
     }
   }

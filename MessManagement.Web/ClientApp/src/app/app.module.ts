@@ -59,6 +59,8 @@ import { MealLandingComponent } from './meal-landing/meal-landing.component';
 import { BazarLandingComponent } from './bazar-landing/bazar-landing.component';
 import { BazarAddComponent } from './bazar-add/bazar-add.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { DatePipe } from '@angular/common';
+import { ReportLandingComponent } from './report-landing/report-landing.component';
 
 
 
@@ -76,7 +78,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MealAddComponent,
     MealLandingComponent,
     BazarLandingComponent,
-    BazarAddComponent
+    BazarAddComponent,
+    ReportLandingComponent
   ],
   imports: [
 
@@ -97,6 +100,7 @@ import { MatNativeDateModule } from '@angular/material/core';
       
       { path: 'expences', component: BazarLandingComponent },
       { path: 'expences/add', component: BazarAddComponent },
+      { path: 'reports', component: ReportLandingComponent },
       
       { path: '**', component: NotFoundComponent }
 
@@ -138,7 +142,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatNativeDateModule
 
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

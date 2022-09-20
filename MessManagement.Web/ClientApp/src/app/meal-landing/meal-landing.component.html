@@ -28,16 +28,16 @@
       <th mat-header-cell *matHeaderCellDef> Meal Date </th>
       <td mat-cell *matCellDef="let element"> {{element.mealDate | date}} </td>
     </ng-container>
-    <ng-container matColumnDef="image">
+    <!-- <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef>Pic</th>
       <td mat-cell *matCellDef="let i=index"> <img src="../../assets/images/person-5.png"  style="width:30px; height:30px;" > </td>
-    </ng-container>
+    </ng-container> -->
    
   
     <!-- Name Column -->
     <ng-container matColumnDef="memberName">
       <th mat-header-cell *matHeaderCellDef> Member </th>
-      <td mat-cell *matCellDef="let element"> {{element.memberFirstName}} {{element.memberLastName}} </td>
+      <td mat-cell *matCellDef="let element"> <img src="../../assets/images/person-5.png"  style="width:30px; height:30px;" > &nbsp; {{element.memberFirstName}} {{element.memberLastName}} </td>
     </ng-container>
   
     <!-- Weight Column -->
