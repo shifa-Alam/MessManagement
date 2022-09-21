@@ -2,9 +2,9 @@
 <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 <div class="row">
     <div class="col-12">
-        <p> Total Expense Tk : {{report.totalExpence}}</p>
+        <p> Total Expense  : {{report.totalExpence |currency:' BDT : ':'symbol':'3.1-1'}}</p>
         <p> Total Meal : {{report.totalMeal}}</p>
-        <p> Meal Rate Tk : {{report.mealRate}}</p>
+        <p> Meal Rate  : {{report.mealRate |currency:' BDT : ':'symbol':'3.1-1'}}</p>
 
     </div>
 </div>
