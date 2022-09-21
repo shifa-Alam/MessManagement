@@ -15,6 +15,9 @@ import { MemberDetailsComponent } from './member-details/member-details.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
+
+
+
 //Angular Material Components
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
@@ -46,8 +49,18 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+
+
+
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { MealAddComponent } from './meal-add/meal-add.component';
+import { MealLandingComponent } from './meal-landing/meal-landing.component';
+import { BazarLandingComponent } from './bazar-landing/bazar-landing.component';
+import { BazarAddComponent } from './bazar-add/bazar-add.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DatePipe } from '@angular/common';
+import { ReportLandingComponent } from './report-landing/report-landing.component';
 
 
 
@@ -61,7 +74,12 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     MemberLandingComponent,
     MemberAddComponent,
     MemberDetailsComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    MealAddComponent,
+    MealLandingComponent,
+    BazarLandingComponent,
+    BazarAddComponent,
+    ReportLandingComponent
   ],
   imports: [
 
@@ -76,12 +94,19 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
       { path: 'members', component: MemberLandingComponent },
       { path: 'members/add', component: MemberAddComponent },
       { path: 'members/details/:id', component: MemberDetailsComponent },
+
+      { path: 'meals', component: MealLandingComponent },
+      { path: 'meals/add', component: MealAddComponent },
+      
+      { path: 'expences', component: BazarLandingComponent },
+      { path: 'expences/add', component: BazarAddComponent },
+      { path: 'reports', component: ReportLandingComponent },
+      
       { path: '**', component: NotFoundComponent }
 
 
     ]),
     BrowserAnimationsModule,
-
     BrowserModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
@@ -113,10 +138,11 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatNativeDateModule
 
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

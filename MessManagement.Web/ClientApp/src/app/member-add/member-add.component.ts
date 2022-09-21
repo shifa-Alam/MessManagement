@@ -39,9 +39,9 @@ export class MemberAddComponent implements OnInit {
   }
   createMemberForm() {
     this.memberForm = new FormGroup<memberFormGroup>({
-      firstName: new FormControl<string>('', { nonNullable: true,validators:[Validators.required]}),
+      firstName: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
       lastName: new FormControl<string>('', { nonNullable: false }),
-      mobileNumber: new FormControl<string>('', { nonNullable: true,validators:[Validators.required] }),
+      mobileNumber: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
       homeDistrict: new FormControl<string>('')
     });
   }
@@ -55,7 +55,7 @@ export class MemberAddComponent implements OnInit {
       })
     }
   }
- 
+
   cancel() {
     this.dialogRef.close();
   }

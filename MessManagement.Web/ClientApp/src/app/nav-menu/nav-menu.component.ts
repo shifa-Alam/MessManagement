@@ -37,7 +37,8 @@ export class NavMenuComponent  implements OnInit,OnDestroy{
     this.fillerNav = [
       'members',
       'meals',
-      "expences"
+      "expences",
+      "reports"
     ];
   }
  

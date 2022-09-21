@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Infra\Repos\" />
     <Folder Include="Classes\" />
   </ItemGroup>
 
