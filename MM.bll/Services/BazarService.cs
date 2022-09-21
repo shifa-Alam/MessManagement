@@ -45,5 +45,10 @@ namespace MM.bll.Services
         {
             return _bazarRepo.Get();
         }
+
+        public IEnumerable<Bazar> GetByMemberIdAndDateRange(long id, DateTime startDate, DateTime endDate)
+        {
+            return _bazarRepo.GetByMemberIdAndDateRange(id,startDate,endDate);
+        }
     }
 }

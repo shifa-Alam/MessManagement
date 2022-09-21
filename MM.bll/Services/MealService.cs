@@ -12,13 +12,11 @@ namespace MM.bll.Services
     public class MealService : IMealService
     {
         private IMealRepo _mealRepo;
-        private IMemberRepo _memberRepo;
-        private IBazarRepo _bazarRepo;
-        public MealService(IMealRepo mealRepo, IMemberRepo memberRepo, IBazarRepo bazarRepo)
+       
+        public MealService(IMealRepo mealRepo)
         {
             _mealRepo = mealRepo;
-            _memberRepo = memberRepo;
-            _bazarRepo = bazarRepo;
+           
         }
         public Meal Save(Meal meal)
         {
@@ -50,8 +48,9 @@ namespace MM.bll.Services
             return _mealRepo.Get();
         }
 
-
-
-
+        public IEnumerable<Meal> GetByMemberIdAndDateRange(long memberId, DateTime startDate, DateTime endDate)
+        {
+            return _mealRepo.GetByMemberIdAndDateRange(memberId,startDate,endDate);
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace MM.Repo
 {
     public class MealRepo : IMealRepo
     {
-        private readonly MMDBContext     _mmDbContext;
+        private readonly MMDBContext _mmDbContext;
 
         public MealRepo(MMDBContext mmDbContext)
         {
@@ -45,12 +45,12 @@ namespace MM.Repo
         }
         public void Delete(long id)
         {
-            var result =  _mmDbContext.Meals
+            var result = _mmDbContext.Meals
                  .FirstOrDefault(e => e.Id == id);
             if (result != null)
             {
                 _mmDbContext.Meals.Remove(result);
-                 _mmDbContext.SaveChangesAsync();
+                _mmDbContext.SaveChangesAsync();
             }
 
         }
@@ -63,10 +63,27 @@ namespace MM.Repo
 
         public IEnumerable<Meal> Get()
         {
-            
-           return _mmDbContext.Meals.Include(e=>e.Member).ToList();
+
+            return _mmDbContext.Meals.Include(e => e.Member).ToList();
         }
 
-       
+
+
+        public IEnumerable<Meal> GetByMemberIdAndDateRange(long memberId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var result = _mmDbContext.Meals;
+                var x= result.Where(e => e.MemberId == memberId && (e.MealDate >= startDate && e.MealDate <= endDate)).ToList();
+
+                return x;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

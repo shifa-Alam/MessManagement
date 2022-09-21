@@ -63,7 +63,7 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
   }
   add() {
     const dialogRef = this.dialog.open(MemberAddComponent, {
-      position: { top: '10px' },
+      position: { top: '100px' },
       data: {
         member: new Member()
       }
@@ -105,4 +105,5 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
       });
     }
   }
+ 
 }

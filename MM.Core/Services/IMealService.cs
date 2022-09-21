@@ -15,5 +15,6 @@ namespace MM.Core.Services
         public Meal SoftDelete(Meal entity);
         public Meal FindById(long id);
         public IEnumerable<Meal> Get();
+        public IEnumerable<Meal> GetByMemberIdAndDateRange(long memberId, DateTime startDate, DateTime endDate);
     }
 }

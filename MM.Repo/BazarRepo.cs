@@ -67,6 +67,20 @@ namespace MM.Repo
            return _mmDbContext.Bazars.Include(e=>e.Member).ToList();
         }
 
-       
+        public IEnumerable<Bazar> GetByMemberIdAndDateRange(long memberId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                IQueryable<Bazar> result = _mmDbContext.Bazars;
+
+                return result.Where(e => e.MemberId == memberId && e.BazarDate >= startDate && e.BazarDate <= endDate).ToList();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

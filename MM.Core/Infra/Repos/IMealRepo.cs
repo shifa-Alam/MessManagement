@@ -14,5 +14,6 @@ namespace MM.Core.Infra.Repos
         public void Delete(long id);
         public Meal FindById(long id);
         public IEnumerable<Meal> Get();
+        public IEnumerable<Meal> GetByMemberIdAndDateRange(long id, DateTime startDate, DateTime endDate);
     }
 }

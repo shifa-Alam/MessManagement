@@ -11,20 +11,24 @@ const subUrl = "Member/";
   providedIn: 'root'
 })
 export class MemberService extends BaseService {
-  deleteMember(id: number):Observable<any> {
-    return super.deleteRequest(subUrl+"DeleteMember",id);
+
+  deleteMember(id: number): Observable<any> {
+    return super.deleteRequest(subUrl + "DeleteMember", id);
   }
 
   //constructor(http: HttpClient) {
   //  super(http)
   //}
   public getMember(): Observable<any> {
-    return super.getRequest(subUrl+"GetMembers");
+    return super.getRequest(subUrl + "GetMembers");
   }
-  saveMember(member: Member):Observable<any> {
-    return super.postRequest(subUrl+"SaveMember",member);
+  saveMember(member: Member): Observable<any> {
+    return super.postRequest(subUrl + "SaveMember", member);
   }
-  updateMember(member: Member):Observable<any> {
-    return super.postRequest(subUrl+"UpdateMember",member);
+  updateMember(member: Member): Observable<any> {
+    return super.postRequest(subUrl + "UpdateMember", member);
+  }
+  public getReport(): Observable<any> {
+    return super.getRequest(subUrl + "GetReport");
   }
 }

@@ -10,7 +10,7 @@ namespace MM.Core.Models
     {
 
         public long MemberId { get; set; }
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
         public DateTime MealDate { get; set; }
 
         public long Id { get; set; }

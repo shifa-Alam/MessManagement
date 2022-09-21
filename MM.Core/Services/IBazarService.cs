@@ -15,5 +15,6 @@ namespace MM.Core.Services
         public Bazar SoftDelete(Bazar entity);
         public Bazar FindById(long id);
         public IEnumerable<Bazar> Get();
+        public IEnumerable<Bazar> GetByMemberIdAndDateRange(long memberId, DateTime startDate, DateTime endDate);
     }
 }

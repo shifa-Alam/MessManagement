@@ -1,1 +1,36 @@
-<p>report-landing works!</p>
+<!-- <p>{{report |json}}</p> -->
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<div class="row">
+    <div class="col-12">
+        <p> Total Expense Tk : {{report.totalExpence}}</p>
+        <p> Total Meal : {{report.totalMeal}}</p>
+        <p> Meal Rate Tk : {{report.mealRate}}</p>
+
+    </div>
+</div>
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Member</th>
+            <th scope="col">Meal</th>
+            <th scope="col">Bazar</th>
+            <th scope="col">Consume</th>
+            <th scope="col">Net Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mr of report.memberReports; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{mr.memberName}}</td>
+            <td>{{mr.mealCount}}</td>
+            <td>{{mr.expenceAmount |currency:' BDT : ':'symbol':'3.1-1'}}</td>
+            <td>{{mr.totalConsume |currency:' BDT : ':'symbol':'3.1-1'}}</td> 
+           <td>{{mr.netAmount |currency:' BDT : ':'symbol':'3.1-1'}}</td>
+           
+          </tr>
+          
+        </tbody>
+      </table>
+</div>

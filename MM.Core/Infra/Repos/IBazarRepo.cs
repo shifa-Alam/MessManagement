@@ -14,5 +14,6 @@ namespace MM.Core.Infra.Repos
         public void Delete(long id);
         public Bazar FindById(long id);
         public IEnumerable<Bazar> Get();
+        public IEnumerable<Bazar> GetByMemberIdAndDateRange(long id, DateTime startDate, DateTime endDate);
     }
 }
