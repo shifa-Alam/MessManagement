@@ -58,8 +58,7 @@ namespace MM.Repo
 
         public Member FindById(long id)
         {
-            var member = _mmDbContext.Members.Find(id);
-            return member;
+            return _mmDbContext.Members.Find(id);
         }
 
         public IEnumerable<Member> Get()
