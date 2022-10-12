@@ -39,8 +39,26 @@ namespace MessManagement.Web.Controllers
             m.MealDate = mealIn.MealDate;
 
 
-            var meal = _mealService.Save(m);
-            return Ok(meal);
+             _mealService.Save(m);
+            return Ok();
+        }
+        [HttpPost]
+        [Route("SaveMealRange")]
+        public IActionResult SaveMealRange(List<MealInputModel> mealIns)
+        {
+            List<Meal> meals= new List<Meal>();
+            foreach (var item in mealIns)
+            {
+                Meal m = new Meal();
+                m.MemberId = item.MemberId;
+                m.Quantity = item.Quantity;
+                m.MealDate = item.MealDate;
+                meals.Add(m);
+            }
+          
+            _mealService.SaveRange(meals);
+
+            return Ok();
         }
 
         [HttpPost]
@@ -55,8 +73,8 @@ namespace MessManagement.Web.Controllers
 
 
 
-            var meal = _mealService.Update(m);
-            return Ok(meal);
+            _mealService.Update(m);
+            return Ok();
         }
 
         [HttpDelete]

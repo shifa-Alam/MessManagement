@@ -39,8 +39,8 @@ namespace MessManagement.Web.Controllers
             m.BazarDate = bazarIn.BazarDate;
 
 
-            var bazar = _bazarService.Save(m);
-            return Ok(bazar);
+         _bazarService.Save(m);
+            return Ok();
         }
 
         [HttpPost]
@@ -55,8 +55,8 @@ namespace MessManagement.Web.Controllers
 
 
 
-            var bazar = _bazarService.Update(m);
-            return Ok(bazar);
+            _bazarService.Update(m);
+            return Ok();
         }
 
         [HttpDelete]

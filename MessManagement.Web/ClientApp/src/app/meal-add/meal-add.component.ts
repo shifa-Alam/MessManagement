@@ -22,7 +22,6 @@ export class MealAddComponent implements OnInit {
   isLoading: boolean = false;
   members: Member[] = [];
   selectedMemberId: number = 0;
-  mealDate = new Date(new Date("Fri Jan 20 2012 11:51:36 GMT+0600").toUTCString()); 
   constructor(
     public service: MealService,
     public fb: FormBuilder,
@@ -55,20 +54,27 @@ export class MealAddComponent implements OnInit {
   }
   createMealForm() {
     this.mealForm = new FormGroup<mealFormGroup>({
-      memberId: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
+      memberId: new FormControl<number>(0,{ nonNullable: true, validators: [Validators.required] }),
       quantity: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
-      mealDate: new FormControl<any>((this.mealDate),{ nonNullable: true, validators: [Validators.required] })
+      mealDate: new FormControl<Date>(new Date(), { nonNullable: true, validators: [Validators.required] })
     });
   }
 
   setValue() {
     if (this.meal) {
       this.mealForm.patchValue({
-        memberId:this.meal.memberId,
+        memberId: this.meal.memberId,
         quantity: this.meal.quantity,
         mealDate: this.meal.mealDate
+
       })
     }
+  }
+  convert(str:string) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
   }
 
   cancel() {
@@ -76,9 +82,12 @@ export class MealAddComponent implements OnInit {
   }
   submit() {
     console.log(this.mealForm);
+
     this.meal.memberId = this.mealForm.value.memberId as number;
     this.meal.quantity = this.mealForm.value.quantity as number;
-    this.meal.mealDate = this.mealForm.value.mealDate;
+    this.meal.mealDate = this.mealForm.value.mealDate as Date;
+    this.meal.mealDate = this.convert(this.mealForm.value.mealDate);
+    console.log(this.meal);
 
     if (this.meal.id) {
       this.service.updateMeal(this.meal).subscribe(result => {

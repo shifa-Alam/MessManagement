@@ -23,6 +23,9 @@ export class MealService extends BaseService {
   saveMeal(meal: Meal):Observable<any> {
     return super.postRequest(subUrl+"SaveMeal",meal);
   }
+  saveMealRange(meals: Meal[]):Observable<any> {
+    return super.postRequest(subUrl+"SaveMealRange",meals);
+  }
   updateMeal(meal: Meal):Observable<any> {
     return super.postRequest(subUrl+"UpdateMeal",meal);
   }

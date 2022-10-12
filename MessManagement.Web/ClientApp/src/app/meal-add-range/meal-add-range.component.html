@@ -1,0 +1,42 @@
+
+
+<mat-table #table [dataSource]="dataSource">
+
+  
+    <ng-container matColumnDef="member">
+        <mat-header-cell *matHeaderCellDef> Member </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.memberFirstName}} </mat-cell>
+    </ng-container>
+   
+    <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <mat-form-field floatLabel="never">
+                <input matInput  [value]="element.quantity" [(ngModel)]="element.quantity">
+            </mat-form-field>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef> 
+            Date  
+            <mat-form-field floatLabel="never">
+                <input matInput [matDatepicker]="picker1"(dateChange)="changeMealDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.mealDate | date}}
+            
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<div></div>
+<div class="button-wrapper" align="end">
+
+    <button mat-flat-button color="warn" (click)="cancel()">Cancel</button> &nbsp;
+    <button mat-flat-button color="primary" (click)="submit()" >Submit</button>
+</div>

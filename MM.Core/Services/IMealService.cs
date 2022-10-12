@@ -9,8 +9,9 @@ namespace MM.Core.Services
 {
     public  interface IMealService
     {
-        public Meal Save(Meal entity);
-        public Meal Update(Meal entity);
+        public void Save(Meal entity);
+        public void SaveRange(List<Meal> meals);
+        public void Update(Meal entity);
         public void DeleteById(long id);
         public Meal SoftDelete(Meal entity);
         public Meal FindById(long id);

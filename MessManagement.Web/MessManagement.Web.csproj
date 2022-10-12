@@ -60,4 +60,6 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+  
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1development_1json__JsonSchema="https://cdn.jsdelivr.net/gh/roadrunner-server/roadrunner@latest/schemas/config/2.0.schema.json" /></VisualStudio></ProjectExtensions>
 </Project>

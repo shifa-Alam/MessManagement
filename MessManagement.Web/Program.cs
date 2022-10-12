@@ -9,14 +9,12 @@ using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-//builder.Services.AddDbContextPool<MMDBContext>(options =>
-// options.UseLazyLoadingProxies()
-// .UseSqlServer(connectionString));
+//builder.Services.AddDbContext<MMDBContext>(x => x.UseSqlServer(connectionString));
 
-
-builder.Services.AddDbContext<MMDBContext>(x => x.UseSqlServer(connectionString));
+builder.Services.AddDbContext<MMDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 // Add services to the container.
 

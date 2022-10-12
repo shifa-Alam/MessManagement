@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { MealAddRangeComponent } from '../meal-add-range/meal-add-range.component';
 import { MealAddComponent } from '../meal-add/meal-add.component';
 import { Meal } from '../Models/meal';
 import { MealService } from '../services/meal.service';
@@ -62,11 +63,11 @@ export class MealLandingComponent implements OnInit, AfterViewInit {
     }
   }
   add() {
-    const dialogRef = this.dialog.open(MealAddComponent, {
+    const dialogRef = this.dialog.open(MealAddRangeComponent, {
       position: { top: '10px' },
-      data: {
-        meal: new Meal()
-      }
+      // data: {
+      //   meal: new Meal()
+      // }
     });
 
     dialogRef.afterClosed().subscribe(result => {

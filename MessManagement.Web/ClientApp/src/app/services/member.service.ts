@@ -28,7 +28,7 @@ export class MemberService extends BaseService {
   updateMember(member: Member): Observable<any> {
     return super.postRequest(subUrl + "UpdateMember", member);
   }
-  public getReport(): Observable<any> {
-    return super.getRequest(subUrl + "GetReport");
+  public getReport(startDate:string,endDate:string): Observable<any> {
+    return super.getRequest(subUrl + "GetReport"+`?startDate=${startDate}&endDate=${endDate}`);
   }
 }

@@ -58,9 +58,10 @@ import { MealAddComponent } from './meal-add/meal-add.component';
 import { MealLandingComponent } from './meal-landing/meal-landing.component';
 import { BazarLandingComponent } from './bazar-landing/bazar-landing.component';
 import { BazarAddComponent } from './bazar-add/bazar-add.component';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { ReportLandingComponent } from './report-landing/report-landing.component';
+import { MealAddRangeComponent } from './meal-add-range/meal-add-range.component';
 
 
 
@@ -79,14 +80,15 @@ import { ReportLandingComponent } from './report-landing/report-landing.componen
     MealLandingComponent,
     BazarLandingComponent,
     BazarAddComponent,
-    ReportLandingComponent
+    ReportLandingComponent,
+    MealAddRangeComponent
   ],
   imports: [
 
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule ,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       //{ path: 'counter', component: CounterComponent },
@@ -97,11 +99,11 @@ import { ReportLandingComponent } from './report-landing/report-landing.componen
 
       { path: 'meals', component: MealLandingComponent },
       { path: 'meals/add', component: MealAddComponent },
-      
+
       { path: 'expences', component: BazarLandingComponent },
       { path: 'expences/add', component: BazarAddComponent },
       { path: 'reports', component: ReportLandingComponent },
-      
+
       { path: '**', component: NotFoundComponent }
 
 
@@ -142,7 +144,9 @@ import { ReportLandingComponent } from './report-landing/report-landing.componen
     MatNativeDateModule
 
   ],
-  providers: [DatePipe],
+  providers: [ DatePipe ,
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

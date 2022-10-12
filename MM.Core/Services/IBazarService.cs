@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace MM.Core.Services
 {
-    public  interface IBazarService
+    public interface IBazarService
     {
-        public Bazar Save(Bazar entity);
-        public Bazar Update(Bazar entity);
+        public void Save(Bazar entity);
+        public void Update(Bazar entity);
         public void DeleteById(long id);
         public Bazar SoftDelete(Bazar entity);
         public Bazar FindById(long id);

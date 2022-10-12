@@ -9,8 +9,8 @@ namespace MM.Core.Services
 {
     public  interface IMemberService
     {
-        public Member Save(Member entity);
-        public Member Update(Member entity);
+        public void Save(Member entity);
+        public void Update(Member entity);
         public void DeleteById(long id);
         public Member SoftDelete(Member entity);
         public Member FindById(long id);

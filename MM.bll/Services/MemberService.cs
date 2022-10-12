@@ -11,25 +11,44 @@ namespace MM.bll.Services
 {
     public class MemberService : IMemberService
     {
-        private IMemberRepo _memberRepo;
-        public MemberService(IMemberRepo memberRepo)
+        private IUnitOfWork _repo;
+        public MemberService(IUnitOfWork repo)
         {
-            _memberRepo = memberRepo;
+            _repo = repo;
         }
-        public Member Save(Member member)
+        public void Save(Member member)
         {
             member.Active = true;
-            member.CreatedDate=DateTime.Now;
-          return _memberRepo.Save(member);
+            member.CreatedDate = DateTime.Now;
+
+            _repo.MemberR.Add(member);
+            _repo.Save();
         }
 
-        public Member Update(Member member)
+        public void Update(Member member)
         {
-            return _memberRepo.Update(member);
+            var existingEntity = _repo.MemberR.GetById(member.Id);
+
+            if (existingEntity != null)
+            {
+                existingEntity.FirstName = member.FirstName;
+                existingEntity.LastName = member.LastName;
+                existingEntity.MobileNumber = member.MobileNumber;
+                existingEntity.EmergencyContact = member.EmergencyContact;
+                existingEntity.HomeDistrict = member.HomeDistrict;
+                existingEntity.ModifiedDate = DateTime.Now;
+
+                _repo.MemberR.Update(existingEntity);
+                _repo.Save();
+            }
+
+           
         }
         public void DeleteById(long id)
         {
-            _memberRepo.Delete(id);
+            var member = _repo.MemberR.GetById(id);
+            _repo.MemberR.Remove(member);
+            _repo.Save();
         }
         public Member SoftDelete(Member member)
         {
@@ -38,12 +57,12 @@ namespace MM.bll.Services
 
         public Member FindById(long id)
         {
-            return _memberRepo.FindById(id);
+            return _repo.MemberR.GetById(id);
         }
 
         public IEnumerable<Member> Get()
-        {          
-            return _memberRepo.Get();
+        {
+            return _repo.MemberR.GetAll();
         }
     }
 }

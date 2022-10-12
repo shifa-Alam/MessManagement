@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MM.Core.Entities;
 using MM.Core.Models;
 using MM.Core.Services;
@@ -14,15 +15,15 @@ namespace MessManagement.Web.Controllers
     public class MemberController : Controller
     {
 
-        private readonly ILogger<MemberController> _logger;
+       
         private readonly IMemberService _memberService;
         private readonly IBazarService _bazarService;
         private readonly IMealService _mealService;
 
 
-        public MemberController(ILogger<MemberController> logger, IMemberService memberService, IMealService mealService, IBazarService bazarService)
+        public MemberController( IMemberService memberService, IMealService mealService, IBazarService bazarService)
         {
-            _logger = logger;
+          
             _memberService = memberService;
             _mealService = mealService;
             _bazarService = bazarService;
@@ -40,8 +41,8 @@ namespace MessManagement.Web.Controllers
             m.MobileNumber = memberIn.MobileNumber;
             m.HomeDistrict = memberIn.HomeDistrict;
 
-            var member = _memberService.Save(m);
-            return Ok(member);
+            _memberService.Save(m);
+            return Ok();
         }
         [HttpPost]
         [Route("UpdateMember")]
@@ -53,10 +54,10 @@ namespace MessManagement.Web.Controllers
             m.LastName = memberIn.LastName;
             m.MobileNumber = memberIn.MobileNumber;
             m.HomeDistrict = memberIn.HomeDistrict;
-
-
-            var member = _memberService.Update(m);
-            return Ok(member);
+            m.EmergencyContact = memberIn.EmergencyContact;
+            
+            _memberService.Update(m);
+            return Ok();
         }
         [HttpDelete]
         [Route("DeleteMember")]
@@ -94,16 +95,13 @@ namespace MessManagement.Web.Controllers
 
         [HttpGet]
         [Route("GetReport")]
-        public IActionResult PrintReport()
+        public IActionResult GetReport( string startDate, string endDate)
         {
-
             Report report = new Report();
 
-            DateTime startDate = DateTime.Now.AddDays(-3);
-            DateTime endDate = DateTime.Now.AddDays(3);
-            startDate = startDate.Date;
-            endDate = endDate.AddTicks(-1);
-
+            DateTime newStartDate = DateUtil.StartOfTheDay(DateTime.Parse(startDate));
+            DateTime newEndDate = DateUtil.EndOfTheDay(DateTime.Parse(endDate));
+           
             var members = _memberService.Get();
 
 
@@ -114,8 +112,8 @@ namespace MessManagement.Web.Controllers
                 MemberReport memberReport = new MemberReport();
                 memberReport.MemberName = member.FirstName + " " + member.LastName;
 
-                var memberwiseMeal = _mealService.GetByMemberIdAndDateRange(member.Id, startDate, endDate);
-                var memberwiseExpense = _bazarService.GetByMemberIdAndDateRange(member.Id, startDate, endDate);
+                var memberwiseMeal = _mealService.GetByMemberIdAndDateRange(member.Id, newStartDate, newEndDate);
+                var memberwiseExpense = _bazarService.GetByMemberIdAndDateRange(member.Id, newStartDate, newEndDate);
 
                 memberReport.MealCount = memberwiseMeal.Sum(e => e.Quantity);
                 memberReport.ExpenceAmount = memberwiseExpense.Sum(e => e.Amount);

@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Bazar } from '../Models/bazar';
 import { Member } from '../Models/member';
 import { BazarService } from '../services/bazar.service';
+import { DateUtil } from '../utils/DateUtil';
 export interface bazarFormGroup {
   memberId: FormControl<number>;
   amount: FormControl<number>;
@@ -55,7 +56,7 @@ export class BazarAddComponent implements OnInit {
     this.bazarForm = new FormGroup<bazarFormGroup>({
       memberId: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
       amount: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required] }),
-      bazarDate: new FormControl<Date>(new Date(),{ nonNullable: true, validators: [Validators.required] })
+      bazarDate: new FormControl<Date>(new Date(), { nonNullable: true, validators: [Validators.required] })
     });
   }
   setValue() {
@@ -72,10 +73,12 @@ export class BazarAddComponent implements OnInit {
     this.dialogRef.close();
   }
   submit() {
-    console.log(this.bazarForm);
+
+    let convertedDate = DateUtil.ConvertToActualDate(this.bazarForm.value.bazarDate);
+    console.log(convertedDate);
     this.bazar.memberId = this.bazarForm.value.memberId as number;
     this.bazar.amount = this.bazarForm.value.amount as number;
-    this.bazar.bazarDate = this.bazarForm.value.bazarDate;
+    this.bazar.bazarDate = convertedDate;
 
     if (this.bazar.id) {
       this.service.updateBazar(this.bazar).subscribe(result => {

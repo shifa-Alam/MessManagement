@@ -11,25 +11,40 @@ namespace MM.bll.Services
 {
     public class BazarService : IBazarService
     {
-        private IBazarRepo _bazarRepo;
-        public BazarService(IBazarRepo bazarRepo)
+        private IUnitOfWork _repo;
+        public BazarService(IUnitOfWork repo)
         {
-            _bazarRepo = bazarRepo;
+            _repo = repo;
         }
-        public Bazar Save(Bazar bazar)
+        public void Save(Bazar bazar)
         {
             bazar.Active = true;
             bazar.CreatedDate = DateTime.Now;
-            return _bazarRepo.Save(bazar);
+
+            _repo.BazarR.Add(bazar);
+            _repo.Save();
         }
 
-        public Bazar Update(Bazar bazar)
+        public void Update(Bazar bazar)
         {
-            return _bazarRepo.Update(bazar);
+            var existingEntity = _repo.BazarR.GetById(bazar.Id);
+
+            if (existingEntity != null)
+            {
+                existingEntity.Amount = bazar.Amount;
+                existingEntity.BazarDate = bazar.BazarDate;
+                existingEntity.ModifiedDate = DateTime.Now;
+
+                _repo.BazarR.Update(existingEntity);
+                _repo.Save();
+            }
+
         }
         public void DeleteById(long id)
         {
-            _bazarRepo.Delete(id);
+            var bazar = _repo.BazarR.GetById(id);
+            _repo.BazarR.Remove(bazar);
+            _repo.Save();
         }
         public Bazar SoftDelete(Bazar bazar)
         {
@@ -38,17 +53,17 @@ namespace MM.bll.Services
 
         public Bazar FindById(long id)
         {
-            return _bazarRepo.FindById(id);
+            return _repo.BazarR.GetById(id);
         }
 
         public IEnumerable<Bazar> Get()
         {
-            return _bazarRepo.Get();
+            return _repo.BazarR.GetAll();
         }
 
         public IEnumerable<Bazar> GetByMemberIdAndDateRange(long id, DateTime startDate, DateTime endDate)
         {
-            return _bazarRepo.GetByMemberIdAndDateRange(id,startDate,endDate);
+            return _repo.BazarR.GetByMemberIdAndDateRange(id, startDate, endDate);
         }
     }
 }
