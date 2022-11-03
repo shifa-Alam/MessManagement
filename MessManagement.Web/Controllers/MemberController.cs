@@ -147,12 +147,12 @@ namespace MessManagement.Web.Controllers
         public double TotalMeal { get; set; }
         public decimal TotalExpence { get; set; }
         public double MealRate { get; set; }
-        public IList<MemberReport> MemberReports { get; set; }
+        public IList<MemberReport>? MemberReports { get; set; }
     }
 
     public class MemberReport
     {
-        public string MemberName { get; set; }
+        public string ?MemberName { get; set; }
         public double MealCount { get; set; }
         public decimal ExpenceAmount { get; set; }
         public double TotalConsume { get; set; }
