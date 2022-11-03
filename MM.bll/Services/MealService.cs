@@ -1,16 +1,11 @@
 ﻿using MM.Core.Entities;
 using MM.Core.Infra.Repos;
 using MM.Core.Services;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MM.bll.Services
 {
-    public class MealService : IMealService
+    public class MealService : IMealService,IDisposable
     {
         private IUnitOfWork _repo;
 
@@ -78,6 +73,10 @@ namespace MM.bll.Services
             }
             _repo.MealR.AddRange(meals);
             _repo.Save();
+        }
+        public void Dispose()
+        {
+            _repo?.Dispose();
         }
     }
 }

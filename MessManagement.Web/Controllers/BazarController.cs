@@ -12,17 +12,12 @@ namespace MessManagement.Web.Controllers
 
     public class BazarController : Controller
     {
-        List<BazarInputModel> bazars = new List<BazarInputModel>();
-
-        private readonly ILogger<BazarController> _logger;
+     
         private readonly IBazarService _bazarService;
         private readonly IMemberService _memberService;
 
-
-
-        public BazarController(ILogger<BazarController> logger, IBazarService bazarService, IMemberService memberService)
+        public BazarController( IBazarService bazarService, IMemberService memberService)
         {
-            _logger = logger;
             _bazarService = bazarService;
             _memberService = memberService;
         }
@@ -39,7 +34,7 @@ namespace MessManagement.Web.Controllers
             m.BazarDate = bazarIn.BazarDate;
 
 
-         _bazarService.Save(m);
+            _bazarService.Save(m);
             return Ok();
         }
 
@@ -84,7 +79,7 @@ namespace MessManagement.Web.Controllers
         {
 
             var bazars = _bazarService.Get();
-            var bazarViewModels= new List<BazarViewModel>();
+            var bazarViewModels = new List<BazarViewModel>();
             foreach (var bazar in bazars)
             {
                 BazarViewModel vm = new BazarViewModel();
@@ -92,9 +87,9 @@ namespace MessManagement.Web.Controllers
                 vm.MemberId = bazar.MemberId;
                 vm.Amount = bazar.Amount;
                 vm.BazarDate = bazar.BazarDate;
-                vm.CreatedDate= bazar.CreatedDate;
-                vm.ModifiedDate= bazar.ModifiedDate;
-                vm.Active=bazar.Active;
+                vm.CreatedDate = bazar.CreatedDate;
+                vm.ModifiedDate = bazar.ModifiedDate;
+                vm.Active = bazar.Active;
                 vm.MemberFirstName = bazar.Member.FirstName;
                 vm.MemberLastName = bazar.Member.LastName;
                 bazarViewModels.Add(vm);
@@ -114,5 +109,12 @@ namespace MessManagement.Web.Controllers
             return Ok(members);
 
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _bazarService?.Dispose();
+            _memberService?.Dispose();
+        }
+
     }
 }

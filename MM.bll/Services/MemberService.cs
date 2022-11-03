@@ -67,7 +67,7 @@ namespace MM.bll.Services
 
         public void Dispose()
         {
-            _repo.Dispose();
+            _repo?.Dispose();
         }
     }
 }

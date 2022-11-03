@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MM.Core.Entities;
 using MM.Core.Models;
 using MM.Core.Services;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Reflection;
+
 
 namespace MessManagement.Web.Controllers
 {
@@ -14,8 +11,6 @@ namespace MessManagement.Web.Controllers
 
     public class MemberController : Controller
     {
-
-       
         private readonly IMemberService _memberService;
         private readonly IBazarService _bazarService;
         private readonly IMealService _mealService;
@@ -140,6 +135,14 @@ namespace MessManagement.Web.Controllers
 
         }
 
+        protected override void Dispose(bool disposing)
+        {
+
+            _mealService?.Dispose();
+            _memberService?.Dispose();
+            _bazarService?.Dispose();
+        }
+
     }
 
     public class Report
@@ -147,12 +150,12 @@ namespace MessManagement.Web.Controllers
         public double TotalMeal { get; set; }
         public decimal TotalExpence { get; set; }
         public double MealRate { get; set; }
-        public IList<MemberReport>? MemberReports { get; set; }
+        public IList<MemberReport> MemberReports { get; set; }
     }
 
     public class MemberReport
     {
-        public string ?MemberName { get; set; }
+        public string? MemberName { get; set; }
         public double MealCount { get; set; }
         public decimal ExpenceAmount { get; set; }
         public double TotalConsume { get; set; }
