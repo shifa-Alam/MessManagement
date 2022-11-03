@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MM.Core.Services
 {
-    public  interface IMealService
+    public  interface IMealService : IDisposable
     {
         public void Save(Meal entity);
         public void SaveRange(List<Meal> meals);

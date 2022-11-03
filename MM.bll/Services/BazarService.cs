@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MM.bll.Services
 {
-    public class BazarService : IBazarService
+    public class BazarService : IBazarService,IDisposable
     {
         private IUnitOfWork _repo;
         public BazarService(IUnitOfWork repo)
@@ -64,6 +64,11 @@ namespace MM.bll.Services
         public IEnumerable<Bazar> GetByMemberIdAndDateRange(long id, DateTime startDate, DateTime endDate)
         {
             return _repo.BazarR.GetByMemberIdAndDateRange(id, startDate, endDate);
+        }
+
+        public void Dispose()
+        {
+           _repo?.Dispose();
         }
     }
 }

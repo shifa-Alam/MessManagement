@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MM.bll.Services;
 using MM.Core.Entities;
 using MM.Core.Models;
 using MM.Core.Services;
@@ -12,17 +13,15 @@ namespace MessManagement.Web.Controllers
 
     public class MealController : Controller
     {
-        List<MealInputModel> meals = new List<MealInputModel>();
-
-        private readonly ILogger<MealController> _logger;
+       
         private readonly IMealService _mealService;
         private readonly IMemberService _memberService;
 
 
 
-        public MealController(ILogger<MealController> logger, IMealService mealService, IMemberService memberService)
+        public MealController( IMealService mealService, IMemberService memberService)
         {
-            _logger = logger;
+           
             _mealService = mealService;
             _memberService = memberService;
         }
@@ -131,6 +130,13 @@ namespace MessManagement.Web.Controllers
             var members = _memberService.Get();
             return Ok(members);
 
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+           
+            _mealService?.Dispose();
+            _memberService?.Dispose();
         }
     }
 }

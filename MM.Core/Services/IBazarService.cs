@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MM.Core.Services
 {
-    public interface IBazarService
+    public interface IBazarService:IDisposable
     {
         public void Save(Bazar entity);
         public void Update(Bazar entity);
