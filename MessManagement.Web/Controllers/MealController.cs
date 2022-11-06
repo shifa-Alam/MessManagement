@@ -1,17 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MM.bll.Services;
 using MM.Core.Entities;
 using MM.Core.Models;
 using MM.Core.Services;
-using System.Diagnostics.Metrics;
-using System.Reflection;
 
 namespace MessManagement.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]
 
-    public class MealController : Controller
+    public class MealController : BaseController
     {
        
         private readonly IMealService _mealService;
@@ -131,10 +128,9 @@ namespace MessManagement.Web.Controllers
             return Ok(members);
 
         }
-
-        protected override void Dispose(bool disposing)
+        
+        public override void Dispose()
         {
-           
             _mealService?.Dispose();
             _memberService?.Dispose();
         }

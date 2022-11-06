@@ -1,27 +1,35 @@
-
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="example-toolbar">
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <h1 class="example-app-name">Responsive App</h1>
+    <h1 class="example-app-name">Mess Manager</h1>
+
   </mat-toolbar>
 
   <mat-sidenav-container class="example-sidenav-container " [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav  class="mat-elevation-z8"  [mode]="mobileQuery.matches ? 'over' : 'side'" opened [fixedInViewport]="mobileQuery.matches"
-      fixedTopGap="56">
+    <mat-sidenav #snav class="mat-elevation-z8" [mode]="mobileQuery.matches ? 'over' : 'side'" opened
+      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
-        <a mat-list-item [routerLinkActive]="['link-active']" routerLink="./{{nav}}" *ngFor="let nav of fillerNav">{{nav| uppercase}}</a>
+        <a mat-list-item [routerLinkActive]="['link-active']" routerLink="./{{nav}}"
+          *ngFor="let nav of fillerNav">{{nav| uppercase}}</a>
       </mat-nav-list>
+      <!-- <div style="text-align: left;font-family: Arial, Helvetica, sans-serif;font-size: 10px;">
+        <p>Month:Nov 2022</p>
+        <p>Total M:100</p>
+        <p>Total Bazar:9000</p>
+        <p>Meal Rate:30 Tk</p>
+      </div> -->
+
     </mat-sidenav>
 
-    <mat-sidenav-content >
+    <mat-sidenav-content>
       <div style="margin-bottom: 8px;"></div>
-      <div class="container mat-elevation-z8" >
-        
+      <div class="container mat-elevation-z8">
+
         <router-outlet></router-outlet>
       </div>
-      
+
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
