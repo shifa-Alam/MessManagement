@@ -11,7 +11,7 @@ namespace MM.Core.Entities
         public long MemberId { get; set; }
         public double Quantity { get; set; }
         public DateTime MealDate { get; set; }
-        public virtual  Member Member { get; set; }
+        public virtual  Member ?Member { get; set; }
 
     }
 }

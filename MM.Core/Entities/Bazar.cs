@@ -14,7 +14,7 @@ namespace MM.Core.Entities
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
         public DateTime BazarDate { get; set; }
-        public virtual  Member Member { get; set; }
+        public virtual  Member ?Member { get; set; }
 
     }
 }

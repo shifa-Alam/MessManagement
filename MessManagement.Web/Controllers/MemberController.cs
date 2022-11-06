@@ -16,9 +16,8 @@ namespace MessManagement.Web.Controllers
         private readonly IMealService _mealService;
 
 
-        public MemberController( IMemberService memberService, IMealService mealService, IBazarService bazarService)
+        public MemberController(IMemberService memberService, IMealService mealService, IBazarService bazarService)
         {
-          
             _memberService = memberService;
             _mealService = mealService;
             _bazarService = bazarService;
@@ -50,7 +49,7 @@ namespace MessManagement.Web.Controllers
             m.MobileNumber = memberIn.MobileNumber;
             m.HomeDistrict = memberIn.HomeDistrict;
             m.EmergencyContact = memberIn.EmergencyContact;
-            
+
             _memberService.Update(m);
             return Ok();
         }
@@ -90,13 +89,13 @@ namespace MessManagement.Web.Controllers
 
         [HttpGet]
         [Route("GetReport")]
-        public IActionResult GetReport( string startDate, string endDate)
+        public IActionResult GetReport(string startDate, string endDate)
         {
             Report report = new Report();
 
             DateTime newStartDate = DateUtil.StartOfTheDay(DateTime.Parse(startDate));
             DateTime newEndDate = DateUtil.EndOfTheDay(DateTime.Parse(endDate));
-           
+
             var members = _memberService.Get();
 
 
@@ -128,7 +127,7 @@ namespace MessManagement.Web.Controllers
             {
                 m.TotalConsume = m.MealCount * report.MealRate;
 
-                m.NetAmount =   (double)(m.ExpenceAmount)- (m.MealCount * report.MealRate);
+                m.NetAmount = (double)(m.ExpenceAmount) - (m.MealCount * report.MealRate);
             }
 
             return Ok(report);
@@ -150,7 +149,7 @@ namespace MessManagement.Web.Controllers
         public double TotalMeal { get; set; }
         public decimal TotalExpence { get; set; }
         public double MealRate { get; set; }
-        public IList<MemberReport> MemberReports { get; set; }
+        public IList<MemberReport> ?MemberReports { get; set; }
     }
 
     public class MemberReport

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MM.bll.Services
 {
-    public class MemberService : IMemberService, IDisposable
+    public class MemberService : BaseService, IMemberService
     {
         private IUnitOfWork _repo;
         public MemberService(IUnitOfWork repo)
@@ -65,7 +65,9 @@ namespace MM.bll.Services
             return _repo.MemberR.GetAll();
         }
 
-        public void Dispose()
+       
+
+        public override void Dispose()
         {
             _repo?.Dispose();
         }

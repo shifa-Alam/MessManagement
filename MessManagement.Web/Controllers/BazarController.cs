@@ -90,8 +90,8 @@ namespace MessManagement.Web.Controllers
                 vm.CreatedDate = bazar.CreatedDate;
                 vm.ModifiedDate = bazar.ModifiedDate;
                 vm.Active = bazar.Active;
-                vm.MemberFirstName = bazar.Member.FirstName;
-                vm.MemberLastName = bazar.Member.LastName;
+                vm.MemberFirstName = bazar?.Member?.FirstName;
+                vm.MemberLastName = bazar?.Member?.LastName;
                 bazarViewModels.Add(vm);
 
             }

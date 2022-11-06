@@ -112,8 +112,8 @@ namespace MessManagement.Web.Controllers
                 vm.CreatedDate= meal.CreatedDate;
                 vm.ModifiedDate= meal.ModifiedDate;
                 vm.Active=meal.Active;
-                vm.MemberFirstName = meal.Member.FirstName;
-                vm.MemberLastName = meal.Member.LastName;
+                vm.MemberFirstName = meal.Member?.FirstName;
+                vm.MemberLastName = meal.Member?.LastName;
                 mealViewModels.Add(vm);
 
             }

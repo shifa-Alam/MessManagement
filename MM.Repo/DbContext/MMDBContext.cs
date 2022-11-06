@@ -15,9 +15,9 @@ namespace MM.Repo
         public MMDBContext(DbContextOptions options) : base(options) { }
 
         //entities
-        public DbSet<Member> Members { get; set; }
-        public DbSet<Meal> Meals { get; set; }
-        public DbSet<Bazar> Bazars { get; set; }
+        public DbSet<Member>? Members { get; set; }
+        public DbSet<Meal>? Meals { get; set; }
+        public DbSet<Bazar>? Bazars { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
