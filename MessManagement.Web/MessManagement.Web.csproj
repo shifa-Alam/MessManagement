@@ -6,6 +6,7 @@
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
     <SpaProxyServerUrl>https://localhost:44458</SpaProxyServerUrl>
+	  <!--<SpaProxyServerUrl>https://localhost</SpaProxyServerUrl>-->
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>

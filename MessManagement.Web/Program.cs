@@ -9,10 +9,6 @@ using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-//builder.Services.AddDbContext<MMDBContext>(x => x.UseSqlServer(connectionString));
-
 builder.Services.AddDbContext<MMDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
@@ -35,7 +31,15 @@ builder.Services.AddScoped<IBazarRepo, BazarRepo>();
 //                .AddApplicationPart(typeof(WeatherForecastController).Assembly)
 //                .AddControllersAsServices();
 
+builder.Services.AddCors();
+
 var app = builder.Build();
+// global cors policy
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true) // allow any origin
+    .AllowCredentials()); // allow credentials
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
