@@ -11,7 +11,7 @@ namespace MessManagement.Web.Controllers
     [ApiController]
     [Route("[controller]")]
 
-    public class BazarController : Controller
+    public class BazarController : BaseController
     {
 
         private readonly IBazarService _bazarService;
@@ -118,11 +118,12 @@ namespace MessManagement.Web.Controllers
 
         }
 
-        protected override void Dispose(bool disposing)
+       
+
+        public override void Dispose()
         {
             _bazarService?.Dispose();
             _memberService?.Dispose();
         }
-
     }
 }

@@ -12,7 +12,7 @@ namespace MessManagement.Web.Controllers
     [ApiController]
     [Route("[controller]")]
 
-    public class MealController : Controller
+    public class MealController : BaseController
     {
        
         private readonly IMealService _mealService;
@@ -136,11 +136,13 @@ namespace MessManagement.Web.Controllers
 
         }
 
-        protected override void Dispose(bool disposing)
+       
+
+        public override void Dispose()
         {
-           
             _mealService?.Dispose();
             _memberService?.Dispose();
+            
         }
     }
 }
