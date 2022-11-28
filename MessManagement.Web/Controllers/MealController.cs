@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using MM.bll.Services;
 using MM.Core.Entities;
 using MM.Core.Models;
@@ -16,14 +17,16 @@ namespace MessManagement.Web.Controllers
        
         private readonly IMealService _mealService;
         private readonly IMemberService _memberService;
+        private readonly IMapper _mapper;
 
 
 
-        public MealController( IMealService mealService, IMemberService memberService)
+        public MealController( IMealService mealService, IMemberService memberService,IMapper mapper)
         {
-           
+
             _mealService = mealService;
             _memberService = memberService;
+            _mapper = mapper;
         }
 
 
@@ -32,30 +35,27 @@ namespace MessManagement.Web.Controllers
         [Route("SaveMeal")]
         public IActionResult SaveMeal(MealInputModel mealIn)
         {
-            Meal m = new Meal();
-            m.MemberId = mealIn.MemberId;
-            m.Quantity = mealIn.Quantity;
-            m.MealDate = mealIn.MealDate;
+            var mappedModel= _mapper.Map<Meal>(mealIn);
 
-
-             _mealService.Save(m);
+             _mealService.Save(mappedModel);
             return Ok();
         }
         [HttpPost]
         [Route("SaveMealRange")]
         public IActionResult SaveMealRange(List<MealInputModel> mealIns)
         {
-            List<Meal> meals= new List<Meal>();
-            foreach (var item in mealIns)
-            {
-                Meal m = new Meal();
-                m.MemberId = item.MemberId;
-                m.Quantity = item.Quantity;
-                m.MealDate = item.MealDate;
-                meals.Add(m);
-            }
-          
-            _mealService.SaveRange(meals);
+            //List<Meal> meals= new List<Meal>();
+            //foreach (var item in mealIns)
+            //{
+            //    Meal m = new Meal();
+            //    m.MemberId = item.MemberId;
+            //    m.Quantity = item.Quantity;
+            //    m.MealDate = item.MealDate;
+            //    meals.Add(m);
+            //}
+            var mappedModel = _mapper.Map<List<Meal>>(mealIns);
+
+            _mealService.SaveRange(mappedModel);
 
             return Ok();
         }
@@ -64,15 +64,16 @@ namespace MessManagement.Web.Controllers
         [Route("UpdateMeal")]
         public IActionResult UpdateMeal(MealInputModel mealIn)
         {
-            Meal m = new Meal();
-            m.Id = mealIn.Id;
-            m.MemberId = mealIn.MemberId;
-            m.Quantity = mealIn.Quantity;
-            m.MealDate = mealIn.MealDate;
+            //Meal m = new Meal();
+            //m.Id = mealIn.Id;
+            //m.MemberId = mealIn.MemberId;
+            //m.Quantity = mealIn.Quantity;
+            //m.MealDate = mealIn.MealDate;
+
+            var mappedModel = _mapper.Map<Meal>(mealIn);
 
 
-
-            _mealService.Update(m);
+            _mealService.Update(mappedModel);
             return Ok();
         }
 
@@ -90,8 +91,9 @@ namespace MessManagement.Web.Controllers
         public IActionResult FindById(long id)
         {
 
-            var meals = _mealService.FindById(id);
-            return Ok(meals);
+            var meal = _mealService.FindById(id);
+            var mappedModel = _mapper.Map<List<MealViewModel>>(meal);
+            return Ok(mappedModel);
 
         }
 
@@ -101,23 +103,24 @@ namespace MessManagement.Web.Controllers
         {
 
             var meals = _mealService.Get();
-            var mealViewModels= new List<MealViewModel>();
-            foreach (var meal in meals)
-            {
-                MealViewModel vm = new MealViewModel();
-                vm.Id = meal.Id;
-                vm.MemberId = meal.MemberId;
-                vm.Quantity = meal.Quantity;
-                vm.MealDate = meal.MealDate;
-                vm.CreatedDate= meal.CreatedDate;
-                vm.ModifiedDate= meal.ModifiedDate;
-                vm.Active=meal.Active;
-                vm.MemberFirstName = meal.Member.FirstName;
-                vm.MemberLastName = meal.Member.LastName;
-                mealViewModels.Add(vm);
+            //var mealViewModels= new List<MealViewModel>();
+            //foreach (var meal in meals)
+            //{
+            //    MealViewModel vm = new MealViewModel();
+            //    vm.Id = meal.Id;
+            //    vm.MemberId = meal.MemberId;
+            //    vm.Quantity = meal.Quantity;
+            //    vm.MealDate = meal.MealDate;
+            //    vm.CreatedDate= meal.CreatedDate;
+            //    vm.ModifiedDate= meal.ModifiedDate;
+            //    vm.Active=meal.Active;
+            //    vm.MemberFirstName = meal.Member.FirstName;
+            //    vm.MemberLastName = meal.Member.LastName;
+            //    mealViewModels.Add(vm);
 
-            }
-            return Ok(mealViewModels);
+            //}
+            var mappedModel = _mapper.Map<List<MealViewModel>>(meals);
+            return Ok(mappedModel);
 
         }
 
@@ -128,7 +131,8 @@ namespace MessManagement.Web.Controllers
         {
 
             var members = _memberService.Get();
-            return Ok(members);
+            var mappedModel = _mapper.Map<List<MemberViewModel>>(members);
+            return Ok(mappedModel);
 
         }
 

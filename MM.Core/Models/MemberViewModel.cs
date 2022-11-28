@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MM.Core.Models
 {
-    public class MemberInputModel 
+    public class MemberViewModel
     {
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } 
         public string LastName { get; set; }
         public string MobileNumber { get; set; } 
         public string EmergencyContact { get; set; } 
-        public string HomeDistrict { get; set; }
+        public string HomeDistrict { get; set; } 
         public string Image { get; set; } 
 
         public long Id { get; set; }

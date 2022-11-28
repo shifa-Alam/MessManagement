@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using MM.Core.Entities;
 using MM.Core.Models;
 using MM.Core.Services;
@@ -12,14 +13,17 @@ namespace MessManagement.Web.Controllers
 
     public class BazarController : Controller
     {
-     
+
         private readonly IBazarService _bazarService;
         private readonly IMemberService _memberService;
+        private readonly IMapper _mapper;
 
-        public BazarController( IBazarService bazarService, IMemberService memberService)
+
+        public BazarController(IBazarService bazarService, IMemberService memberService, IMapper mapper)
         {
             _bazarService = bazarService;
             _memberService = memberService;
+            _mapper = mapper;
         }
 
 
@@ -28,13 +32,13 @@ namespace MessManagement.Web.Controllers
         [Route("SaveBazar")]
         public IActionResult SaveBazar(BazarInputModel bazarIn)
         {
-            Bazar m = new Bazar();
-            m.MemberId = bazarIn.MemberId;
-            m.Amount = bazarIn.Amount;
-            m.BazarDate = bazarIn.BazarDate;
+            //Bazar m = new Bazar();
+            //m.MemberId = bazarIn.MemberId;
+            //m.Amount = bazarIn.Amount;
+            //m.BazarDate = bazarIn.BazarDate;
+            var bazar = _mapper.Map<Bazar>(bazarIn);
 
-
-            _bazarService.Save(m);
+            _bazarService.Save(bazar);
             return Ok();
         }
 
@@ -42,15 +46,15 @@ namespace MessManagement.Web.Controllers
         [Route("UpdateBazar")]
         public IActionResult UpdateBazar(BazarInputModel bazarIn)
         {
-            Bazar m = new Bazar();
-            m.Id = bazarIn.Id;
-            m.MemberId = bazarIn.MemberId;
-            m.Amount = bazarIn.Amount;
-            m.BazarDate = bazarIn.BazarDate;
+            //Bazar m = new Bazar();
+            //m.Id = bazarIn.Id;
+            //m.MemberId = bazarIn.MemberId;
+            //m.Amount = bazarIn.Amount;
+            //m.BazarDate = bazarIn.BazarDate;
 
+            var bazar = _mapper.Map<Bazar>(bazarIn);
 
-
-            _bazarService.Update(m);
+            _bazarService.Update(bazar);
             return Ok();
         }
 
@@ -68,8 +72,9 @@ namespace MessManagement.Web.Controllers
         public IActionResult FindById(long id)
         {
 
-            var bazars = _bazarService.FindById(id);
-            return Ok(bazars);
+            var existing = _bazarService.FindById(id);
+            var bazar = _mapper.Map<BazarViewModel>(existing);
+            return Ok(bazar);
 
         }
 
@@ -79,23 +84,24 @@ namespace MessManagement.Web.Controllers
         {
 
             var bazars = _bazarService.Get();
-            var bazarViewModels = new List<BazarViewModel>();
-            foreach (var bazar in bazars)
-            {
-                BazarViewModel vm = new BazarViewModel();
-                vm.Id = bazar.Id;
-                vm.MemberId = bazar.MemberId;
-                vm.Amount = bazar.Amount;
-                vm.BazarDate = bazar.BazarDate;
-                vm.CreatedDate = bazar.CreatedDate;
-                vm.ModifiedDate = bazar.ModifiedDate;
-                vm.Active = bazar.Active;
-                vm.MemberFirstName = bazar.Member.FirstName;
-                vm.MemberLastName = bazar.Member.LastName;
-                bazarViewModels.Add(vm);
+            //var bazarViewModels = new List<BazarViewModel>();
+            //foreach (var bazar in bazars)
+            //{
+            //    BazarViewModel vm = new BazarViewModel();
+            //    vm.Id = bazar.Id;
+            //    vm.MemberId = bazar.MemberId;
+            //    vm.Amount = bazar.Amount;
+            //    vm.BazarDate = bazar.BazarDate;
+            //    vm.CreatedDate = bazar.CreatedDate;
+            //    vm.ModifiedDate = bazar.ModifiedDate;
+            //    vm.Active = bazar.Active;
+            //    vm.MemberFirstName = bazar.Member.FirstName;
+            //    vm.MemberLastName = bazar.Member.LastName;
+            //    bazarViewModels.Add(vm);
 
-            }
-            return Ok(bazarViewModels);
+            //}
+            var mamppedModel = _mapper.Map<List<BazarViewModel>>(bazars);
+            return Ok(mamppedModel);
 
         }
 
@@ -106,7 +112,9 @@ namespace MessManagement.Web.Controllers
         {
 
             var members = _memberService.Get();
-            return Ok(members);
+            var mamppedModel = _mapper.Map<List<MemberViewModel>>(members);
+            return Ok(mamppedModel);
+           
 
         }
 

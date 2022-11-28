@@ -1,11 +1,10 @@
-using MessManagement.Web.Controllers;
+
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using MM.bll.Services;
 using MM.Core.Infra.Repos;
 using MM.Core.Services;
 using MM.Repo;
-using System.Configuration;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +29,7 @@ builder.Services.AddScoped<IMealService, MealService>();
 builder.Services.AddScoped<IMealRepo, MealRepo>();
 builder.Services.AddScoped<IBazarService, BazarService>();
 builder.Services.AddScoped<IBazarRepo, BazarRepo>();
+builder.Services.AddAutoMapper(typeof(Program));
 
 //builder.Services.AddMvc()
 //                .AddApplicationPart(typeof(WeatherForecastController).Assembly)
