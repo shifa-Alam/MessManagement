@@ -37,7 +37,7 @@ export class MealAddRangeComponent implements OnInit {
       meal.memberLastName = m.lastName;
       meal.memberId = m.id;
       meal.quantity = 0;
-      meal.mealDate = new Date();
+      meal.mealDate = DateUtil.ConvertToActualDate(new Date().toLocaleDateString());
       this.meals.push(meal);
     });
     this.dataSource.data = this.meals;
@@ -60,10 +60,9 @@ export class MealAddRangeComponent implements OnInit {
     this.dialogRef.close();
   }
   changeMealDate(date: MatDatepickerInputEvent<any>) {
-    console.log(date);
-    let convertedDate = DateUtil.ConvertToActualDate(date.value);
-    console.log(convertedDate);
 
+    let convertedDate = DateUtil.ConvertToActualDate(date.value);
+    
     this.meals.forEach(e => {
       e.mealDate = DateUtil.ConvertToActualDate(date.value);
 
@@ -75,7 +74,6 @@ export class MealAddRangeComponent implements OnInit {
       this.dialogRef.close();
     },
       error => console.error(error));
-
 
   }
 }

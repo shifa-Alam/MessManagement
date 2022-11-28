@@ -17,7 +17,7 @@ namespace MM.Core.Models
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public bool Active { get; set; }
-        public string MemberFirstName { get; set; }
-        public string MemberLastName { get; set; }
+        public string ?MemberFirstName { get; set; }
+        public string ?MemberLastName { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MM.Core.Services
 {
-    public  interface IMemberService : IDisposable
+    public  interface IMemberService : IBaseService
     {
         public void Save(Member entity);
         public void Update(Member entity);

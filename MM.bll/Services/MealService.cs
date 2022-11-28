@@ -5,7 +5,7 @@ using MM.Core.Services;
 
 namespace MM.bll.Services
 {
-    public class MealService : IMealService,IDisposable
+    public class MealService : BaseService, IMealService
     {
         private IUnitOfWork _repo;
 
@@ -74,7 +74,8 @@ namespace MM.bll.Services
             _repo.MealR.AddRange(meals);
             _repo.Save();
         }
-        public void Dispose()
+      
+        public override void Dispose()
         {
             _repo?.Dispose();
         }
