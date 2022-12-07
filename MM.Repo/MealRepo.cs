@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MM.Core.Entities;
+using MM.Core.Helpers;
 using MM.Core.Infra.Repos;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace MM.Repo
             try
             {
                 var result = context.Meals.Where(e => e.MemberId == memberId && (e.MealDate >= startDate && e.MealDate <= endDate)).ToList();
-                
+
                 return result;
             }
             catch (Exception)
@@ -30,12 +31,20 @@ namespace MM.Repo
         }
         public override IEnumerable<Meal> GetAll()
         {
-            var meals = context.Meals.Include(e => e.Member).OrderByDescending(e=>e.MealDate).ToList();
+            var meals = context.Meals.Include(e => e.Member).OrderByDescending(e => e.MealDate).ToList();
             return meals;
+        }
+
+        public IEnumerable<Meal> GetWithFilter(PaginationFilter filter)
+        {
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            var response = context.Meals.Include(e => e.Member).OrderByDescending(e => e.MealDate).Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+               .Take(validFilter.PageSize);
+            return response;
         }
     }
 
-   
+
     //public class MealRepo : IMealRepo
     //{
     //    private readonly MMDBContext _mmDbContext;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Meal } from '../Models/meal';
+import { PaginationFilter } from '../Models/paginationFilter';
 import { BaseService } from './base.service';
 
 const subUrl = "Meal/";
@@ -17,8 +18,8 @@ export class MealService extends BaseService {
   //constructor(http: HttpClient) {
   //  super(http)
   //}
-  public getMeal(): Observable<any> {
-    return super.getRequest(subUrl+"GetMeals");
+  public getMeal(filter:PaginationFilter): Observable<any> {
+    return super.getRequest(subUrl+`GetMeals?pageNumber=${filter.pageNumber}&pageSize=${filter.pageSize}`);
   }
   saveMeal(meal: Meal):Observable<any> {
     return super.postRequest(subUrl+"SaveMeal",meal);

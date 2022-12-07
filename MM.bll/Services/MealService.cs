@@ -1,4 +1,5 @@
 ﻿using MM.Core.Entities;
+using MM.Core.Helpers;
 using MM.Core.Infra.Repos;
 using MM.Core.Services;
 
@@ -78,6 +79,11 @@ namespace MM.bll.Services
         public override void Dispose()
         {
             _repo?.Dispose();
+        }
+
+        public IEnumerable<Meal> GetWithFilter(PaginationFilter filter)
+        {
+            return _repo.MealR.GetWithFilter(filter);
         }
     }
 }

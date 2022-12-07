@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using Castle.Core.Resource;
+using MessManagement.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using MM.bll.Services;
 using MM.Core.Entities;
+using MM.Core.Helpers;
 using MM.Core.Models;
 using MM.Core.Services;
 using System.Diagnostics.Metrics;
@@ -14,14 +17,14 @@ namespace MessManagement.Web.Controllers
 
     public class MealController : BaseController
     {
-       
+
         private readonly IMealService _mealService;
         private readonly IMemberService _memberService;
         private readonly IMapper _mapper;
 
 
 
-        public MealController( IMealService mealService, IMemberService memberService,IMapper mapper)
+        public MealController(IMealService mealService, IMemberService memberService, IMapper mapper)
         {
 
             _mealService = mealService;
@@ -35,9 +38,9 @@ namespace MessManagement.Web.Controllers
         [Route("SaveMeal")]
         public IActionResult SaveMeal(MealInputModel mealIn)
         {
-            var mappedModel= _mapper.Map<Meal>(mealIn);
+            var mappedModel = _mapper.Map<Meal>(mealIn);
 
-             _mealService.Save(mappedModel);
+            _mealService.Save(mappedModel);
             return Ok();
         }
         [HttpPost]
@@ -99,28 +102,15 @@ namespace MessManagement.Web.Controllers
 
         [HttpGet]
         [Route("GetMeals")]
-        public IActionResult GetMeals()
+        public IActionResult GetMeals([FromQuery] PaginationFilter filter)
         {
 
-            var meals = _mealService.Get();
-            //var mealViewModels= new List<MealViewModel>();
-            //foreach (var meal in meals)
-            //{
-            //    MealViewModel vm = new MealViewModel();
-            //    vm.Id = meal.Id;
-            //    vm.MemberId = meal.MemberId;
-            //    vm.Quantity = meal.Quantity;
-            //    vm.MealDate = meal.MealDate;
-            //    vm.CreatedDate= meal.CreatedDate;
-            //    vm.ModifiedDate= meal.ModifiedDate;
-            //    vm.Active=meal.Active;
-            //    vm.MemberFirstName = meal.Member.FirstName;
-            //    vm.MemberLastName = meal.Member.LastName;
-            //    mealViewModels.Add(vm);
+            var meals = _mealService.GetWithFilter(filter);
 
-            //}
             var mappedModel = _mapper.Map<List<MealViewModel>>(meals);
-            return Ok(mappedModel);
+            //return Ok(mappedModel);
+            var response = new PagedResponse<List<MealViewModel>>(mappedModel, filter.PageNumber, filter.PageSize);
+            return Ok(response);
 
         }
 
@@ -136,13 +126,13 @@ namespace MessManagement.Web.Controllers
 
         }
 
-       
+
 
         public override void Dispose()
         {
             _mealService?.Dispose();
             _memberService?.Dispose();
-            
+
         }
     }
 }

@@ -1,12 +1,13 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { MealAddRangeComponent } from '../meal-add-range/meal-add-range.component';
 import { MealAddComponent } from '../meal-add/meal-add.component';
 import { Meal } from '../Models/meal';
+import { PaginationFilter } from '../Models/paginationFilter';
 import { MealService } from '../services/meal.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class MealLandingComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [];
   color: string;
   isLoading: boolean = false;
+  filter:PaginationFilter=new PaginationFilter();
 
   constructor(private service: MealService, public dialog: MatDialog) {
     this.color = "orange";
@@ -39,12 +41,23 @@ export class MealLandingComponent implements OnInit, AfterViewInit {
   setColumn() {
     this.displayedColumns = ['id', 'mealDate', 'memberName', 'quantity', 'action'];
   }
+  pageChange(e:PageEvent){
+    this.filter.pageNumber=e.pageIndex+1;
+    this.filter.pageSize=e.pageSize;
+    this.getMeals();
 
+  }
   getMeals() {
     this.isLoading = true;
-    this.service.getMeal().subscribe(result => {
-      this.meals = result;
+   
+    this.service.getMeal(this.filter).subscribe(result => {
+      this.meals = result.data;
+      console.log(result.data);
+      
       this.dataSource = new MatTableDataSource(this.meals);
+      console.log(this.dataSource.data.length);
+      
+      
       this.isLoading = false;
     },
       error => {
@@ -52,6 +65,7 @@ export class MealLandingComponent implements OnInit, AfterViewInit {
         this.isLoading = false;
       }
     );
+    
   }
 
   applyFilter(event: Event) {
