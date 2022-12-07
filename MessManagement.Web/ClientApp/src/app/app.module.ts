@@ -90,7 +90,7 @@ import { MealAddRangeComponent } from './meal-add-range/meal-add-range.component
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: MemberLandingComponent, pathMatch: 'full' },
       //{ path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'members', component: MemberLandingComponent },
