@@ -83,6 +83,8 @@ namespace MM.bll.Services
 
         public IEnumerable<Meal> GetWithFilter(MealFilter filter)
         {
+            filter.StartDate= filter.StartDate.Date;
+            filter.EndDate=filter.EndDate.AddDays(1).AddSeconds(-1);
             return _repo.MealR.GetWithFilter(filter);
         }
     }
