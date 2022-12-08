@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Meal } from '../Models/meal';
-import { PaginationFilter } from '../Models/paginationFilter';
+import { BaseFilter } from '../Models/filters/baseFilter';
 import { BaseService } from './base.service';
+import { MealFilter } from '../Models/filters/mealFIlter';
 
 const subUrl = "Meal/";
 
@@ -11,27 +12,30 @@ const subUrl = "Meal/";
   providedIn: 'root'
 })
 export class MealService extends BaseService {
-  deleteMeal(id: number):Observable<any> {
-    return super.deleteRequest(subUrl+"DeleteMeal",id);
+  deleteMeal(id: number): Observable<any> {
+    return super.deleteRequest(subUrl + "DeleteMeal", id);
   }
 
   //constructor(http: HttpClient) {
   //  super(http)
   //}
-  public getMeal(filter:PaginationFilter): Observable<any> {
-    return super.getRequest(subUrl+`GetMeals?pageNumber=${filter.pageNumber}&pageSize=${filter.pageSize}`);
+  public getMeal(filter: MealFilter): Observable<any> {
+
+    return super.getRequest(subUrl +
+      `GetMeals?pageNumber=${filter.pageNumber}&pageSize=${filter.pageSize}&startDate=${filter.startDate}&endDate=${filter.endDate}&memberName=${filter.memberName}`
+    );
   }
-  saveMeal(meal: Meal):Observable<any> {
-    return super.postRequest(subUrl+"SaveMeal",meal);
+  saveMeal(meal: Meal): Observable<any> {
+    return super.postRequest(subUrl + "SaveMeal", meal);
   }
-  saveMealRange(meals: Meal[]):Observable<any> {
-    return super.postRequest(subUrl+"SaveMealRange",meals);
+  saveMealRange(meals: Meal[]): Observable<any> {
+    return super.postRequest(subUrl + "SaveMealRange", meals);
   }
-  updateMeal(meal: Meal):Observable<any> {
-    return super.postRequest(subUrl+"UpdateMeal",meal);
+  updateMeal(meal: Meal): Observable<any> {
+    return super.postRequest(subUrl + "UpdateMeal", meal);
   }
 
   public getMembers(): Observable<any> {
-    return super.getRequest(subUrl+"GetMembers");
+    return super.getRequest(subUrl + "GetMembers");
   }
 }

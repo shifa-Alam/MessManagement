@@ -4,8 +4,9 @@ using MessManagement.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using MM.bll.Services;
 using MM.Core.Entities;
-using MM.Core.Helpers;
-using MM.Core.Models;
+using MM.Core.Models.FilterModel;
+using MM.Core.Models.InputModel;
+using MM.Core.Models.ViewModel;
 using MM.Core.Services;
 using System.Diagnostics.Metrics;
 using System.Reflection;
@@ -102,7 +103,8 @@ namespace MessManagement.Web.Controllers
 
         [HttpGet]
         [Route("GetMeals")]
-        public IActionResult GetMeals([FromQuery] PaginationFilter filter)
+        public IActionResult GetMeals([FromQuery] MealFilter filter)
+        
         {
 
             var meals = _mealService.GetWithFilter(filter);

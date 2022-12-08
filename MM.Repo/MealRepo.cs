@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MM.Core.Entities;
-using MM.Core.Helpers;
 using MM.Core.Infra.Repos;
+using MM.Core.Models.FilterModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,10 +35,15 @@ namespace MM.Repo
             return meals;
         }
 
-        public IEnumerable<Meal> GetWithFilter(PaginationFilter filter)
+        public IEnumerable<Meal> GetWithFilter(MealFilter filter)
         {
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
-            var response = context.Meals.Include(e => e.Member).OrderByDescending(e => e.MealDate).Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+            var validFilter = new BaseFilter(filter.PageNumber, filter.PageSize);
+            var response = context.Meals.Include(e => e.Member)
+                .Where(e => e.MealDate >= filter.StartDate
+                    && e.MealDate <= filter.EndDate
+                    && (!string.IsNullOrEmpty(filter.MemberName) ? (e.Member.FirstName.Contains(filter.MemberName) || e.Member.LastName.Contains(filter.MemberName)) : true))
+                .OrderByDescending(e => e.MealDate)
+                .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
                .Take(validFilter.PageSize);
             return response;
         }

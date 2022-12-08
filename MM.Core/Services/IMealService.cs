@@ -1,5 +1,5 @@
 ﻿using MM.Core.Entities;
-using MM.Core.Helpers;
+using MM.Core.Models.FilterModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace MM.Core.Services
         public Meal SoftDelete(Meal entity);
         public Meal FindById(long id);
         public IEnumerable<Meal> Get();
-        public IEnumerable<Meal> GetWithFilter(PaginationFilter filter);
+        public IEnumerable<Meal> GetWithFilter(MealFilter filter);
         public IEnumerable<Meal> GetByMemberIdAndDateRange(long memberId, DateTime startDate, DateTime endDate);
     }
 }

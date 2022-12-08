@@ -7,8 +7,9 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 import { MealAddRangeComponent } from '../meal-add-range/meal-add-range.component';
 import { MealAddComponent } from '../meal-add/meal-add.component';
 import { Meal } from '../Models/meal';
-import { PaginationFilter } from '../Models/paginationFilter';
 import { MealService } from '../services/meal.service';
+import { MealFilter } from '../Models/filters/mealFIlter';
+import { DateUtil } from '../utils/DateUtil';
 
 @Component({
   selector: 'app-meal-landing',
@@ -24,7 +25,7 @@ export class MealLandingComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [];
   color: string;
   isLoading: boolean = false;
-  filter:PaginationFilter=new PaginationFilter();
+  filter: MealFilter = new MealFilter();
 
   constructor(private service: MealService, public dialog: MatDialog) {
     this.color = "orange";
@@ -36,28 +37,38 @@ export class MealLandingComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.setColumn();
+    this.initFilters();
     this.getMeals();
+  }
+  initFilters() {
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    this.filter.memberName = "shifa";
+    this.filter.startDate = DateUtil.ConvertToActualDate(firstDay.toLocaleDateString());
+    this.filter.endDate = DateUtil.ConvertToActualDate(lastDay.toLocaleDateString());
   }
   setColumn() {
     this.displayedColumns = ['id', 'mealDate', 'memberName', 'quantity', 'action'];
   }
-  pageChange(e:PageEvent){
-    this.filter.pageNumber=e.pageIndex+1;
-    this.filter.pageSize=e.pageSize;
+  pageChange(e: PageEvent) {
+    this.filter.pageNumber = e.pageIndex + 1;
+    this.filter.pageSize = e.pageSize;
     this.getMeals();
 
   }
   getMeals() {
     this.isLoading = true;
-   
+
     this.service.getMeal(this.filter).subscribe(result => {
       this.meals = result.data;
       console.log(result.data);
-      
+
       this.dataSource = new MatTableDataSource(this.meals);
       console.log(this.dataSource.data.length);
-      
-      
+
+
       this.isLoading = false;
     },
       error => {
@@ -65,7 +76,7 @@ export class MealLandingComponent implements OnInit, AfterViewInit {
         this.isLoading = false;
       }
     );
-    
+
   }
 
   applyFilter(event: Event) {

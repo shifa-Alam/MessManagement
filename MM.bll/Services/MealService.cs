@@ -1,6 +1,6 @@
 ﻿using MM.Core.Entities;
-using MM.Core.Helpers;
 using MM.Core.Infra.Repos;
+using MM.Core.Models.FilterModel;
 using MM.Core.Services;
 
 
@@ -81,7 +81,7 @@ namespace MM.bll.Services
             _repo?.Dispose();
         }
 
-        public IEnumerable<Meal> GetWithFilter(PaginationFilter filter)
+        public IEnumerable<Meal> GetWithFilter(MealFilter filter)
         {
             return _repo.MealR.GetWithFilter(filter);
         }
