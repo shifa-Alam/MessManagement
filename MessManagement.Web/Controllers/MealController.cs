@@ -104,7 +104,7 @@ namespace MessManagement.Web.Controllers
         [HttpGet]
         [Route("GetMeals")]
         public IActionResult GetMeals([FromQuery] MealFilter filter)
-        
+
         {
 
             var meals = _mealService.GetWithFilter(filter);
@@ -112,6 +112,7 @@ namespace MessManagement.Web.Controllers
             var mappedModel = _mapper.Map<List<MealViewModel>>(meals);
             //return Ok(mappedModel);
             var response = new PagedResponse<List<MealViewModel>>(mappedModel, filter.PageNumber, filter.PageSize);
+            response.TotalRecords = meals.Count();
             return Ok(response);
 
         }

@@ -16,7 +16,7 @@ import { DateUtil } from '../utils/DateUtil';
   templateUrl: './meal-landing.component.html',
   styleUrls: ['./meal-landing.component.css']
 })
-export class MealLandingComponent implements OnInit, AfterViewInit {
+export class MealLandingComponent implements OnInit {
   dataSource!: MatTableDataSource<Meal>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -30,10 +30,10 @@ export class MealLandingComponent implements OnInit, AfterViewInit {
   constructor(private service: MealService, public dialog: MatDialog) {
     this.color = "orange";
   }
-  ngAfterViewInit(): void {
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-  }
+  // ngAfterViewInit(): void {
+  //   // this.dataSource.paginator = this.paginator;
+  //   // this.dataSource.sort = this.sort;
+  // }
 
   ngOnInit(): void {
     this.setColumn();
@@ -44,48 +44,11 @@ export class MealLandingComponent implements OnInit, AfterViewInit {
     var date = new Date();
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-    this.filter.memberName = "shifa";
     this.filter.startDate = DateUtil.ConvertToActualDate(firstDay.toLocaleDateString());
     this.filter.endDate = DateUtil.ConvertToActualDate(lastDay.toLocaleDateString());
   }
   setColumn() {
     this.displayedColumns = ['id', 'mealDate', 'memberName', 'quantity', 'action'];
-  }
-  pageChange(e: PageEvent) {
-    this.filter.pageNumber = e.pageIndex + 1;
-    this.filter.pageSize = e.pageSize;
-    this.getMeals();
-
-  }
-  getMeals() {
-    this.isLoading = true;
-
-    this.service.getMeal(this.filter).subscribe(result => {
-      this.meals = result.data;
-      console.log(result.data);
-
-      this.dataSource = new MatTableDataSource(this.meals);
-      console.log(this.dataSource.data.length);
-
-
-      this.isLoading = false;
-    },
-      error => {
-        console.error(error);
-        this.isLoading = false;
-      }
-    );
-
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
   add() {
     const dialogRef = this.dialog.open(MealAddRangeComponent, {
@@ -112,7 +75,6 @@ export class MealLandingComponent implements OnInit, AfterViewInit {
     });
 
   }
-
   delete(id: number) {
     if (id) {
       const dialogRef = this.dialog.open(DeleteDialogComponent, {
@@ -130,6 +92,48 @@ export class MealLandingComponent implements OnInit, AfterViewInit {
         }
       });
     }
+  }
+  onNameChange(event: any) {
+    if (event)
+      this.filter.memberName = event;
+    this.getMeals();
+
+  }
+  onStartChange(event: any) {
+    if (event.value)
+      this.filter.startDate = DateUtil.ConvertToActualDate(event.value.toLocaleDateString());
+    this.getMeals();
+  }
+  onEndChange(event: any) {
+    if (event.value)
+      this.filter.endDate = DateUtil.ConvertToActualDate(event.value.toLocaleDateString());
+    this.getMeals();
+  }
+  pageChange(e: PageEvent) {
+    this.filter.pageNumber = e.pageIndex + 1;
+    this.filter.pageSize = e.pageSize;
+    this.getMeals();
+
+  }
+  getMeals() {
+    this.isLoading = true;
+
+    this.service.getMeal(this.filter).subscribe(result => {
+      this.meals = result.data;
+      console.log(result.data);
+
+      this.dataSource = new MatTableDataSource(this.meals);
+      console.log(this.dataSource.data.length);
+
+
+      this.isLoading = false;
+    },
+      error => {
+        console.error(error);
+        this.isLoading = false;
+      }
+    );
+
   }
 }
 
