@@ -20,15 +20,14 @@ export class MealLandingComponent implements OnInit {
   dataSource!: MatTableDataSource<Meal>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  isLoading: boolean = false;
   meals: Meal[] = [];
   displayedColumns: string[] = [];
-  color: string;
-  isLoading: boolean = false;
+  
   filter: MealFilter = new MealFilter();
 
   constructor(private service: MealService, public dialog: MatDialog) {
-    this.color = "orange";
+ 
   }
   // ngAfterViewInit(): void {
   //   // this.dataSource.paginator = this.paginator;

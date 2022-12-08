@@ -38,7 +38,7 @@ namespace MM.Repo
         public IEnumerable<Meal> GetWithFilter(MealFilter filter)
         {
             var validFilter = new BaseFilter(filter.PageNumber, filter.PageSize);
-            var response = context.Meals.Include(e => e.Member)
+            var response = context.Meals?.Include(e => e.Member)
                 .Where(e => e.MealDate >= filter.StartDate
                     && e.MealDate <= filter.EndDate
                     && (!string.IsNullOrEmpty(filter.MemberName) ? (e.Member.FirstName.Contains(filter.MemberName) || e.Member.LastName.Contains(filter.MemberName)) : true))
