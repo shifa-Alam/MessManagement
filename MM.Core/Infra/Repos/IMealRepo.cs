@@ -1,4 +1,5 @@
-﻿using MM.Core.Entities;
+﻿using MessManagement.Core.Helpers;
+using MM.Core.Entities;
 using MM.Core.Models.FilterModel;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,6 @@ namespace MM.Core.Infra.Repos
     {
         IEnumerable<Meal> GetByMemberIdAndDateRange(long memberId, DateTime startDate, DateTime endDate);
         IEnumerable<Meal> GetWithFilter(MealFilter filter);
+        PagedResponse<List<Meal>> GetWithFilterReplica(MealFilter filter);
     }
 }

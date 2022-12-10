@@ -1,4 +1,4 @@
-﻿namespace MessManagement.Web.Helpers
+﻿namespace MessManagement.Core.Helpers
 {
     public class PagedResponse<T> : Response<T>
     {

@@ -23,11 +23,12 @@ export class MealLandingComponent implements OnInit {
   isLoading: boolean = false;
   meals: Meal[] = [];
   displayedColumns: string[] = [];
-  
+
   filter: MealFilter = new MealFilter();
+  totalRecords: any;
 
   constructor(private service: MealService, public dialog: MatDialog) {
- 
+
   }
   // ngAfterViewInit(): void {
   //   // this.dataSource.paginator = this.paginator;
@@ -119,16 +120,14 @@ export class MealLandingComponent implements OnInit {
 
     this.service.getMeal(this.filter).subscribe(result => {
       this.meals = result.data;
-      console.log(result.data);
+      this.totalRecords = result.totalRecords;
 
       this.dataSource = new MatTableDataSource(this.meals);
-      console.log(this.dataSource.data.length);
-
 
       this.isLoading = false;
     },
       error => {
-        console.error(error);
+
         this.isLoading = false;
       }
     );

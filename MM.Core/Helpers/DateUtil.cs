@@ -1,4 +1,4 @@
-﻿namespace MessManagement.Web
+﻿namespace MessManagement.Core.Helpers
 {
    
     public static class DateUtil

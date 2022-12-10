@@ -106,11 +106,11 @@ namespace MessManagement.Web.Controllers
         public IActionResult GetMeals([FromQuery] MealFilter filter)
         {
 
-            var meals = _mealService.GetWithFilter(filter);
-            var mappedModel = _mapper.Map<List<MealViewModel>>(meals);
+            var meals = _mealService.GetWithFilterReplica(filter);
+            //var mappedModel = _mapper.Map<List<MealViewModel>>(meals.Data);
           
-            var response = new PagedResponse<List<MealViewModel>>(mappedModel, filter.PageNumber, filter.PageSize);
-            response.TotalRecords = meals.Count();
+            var response = new PagedResponse<List<MealViewModel>>(_mapper.Map<List<MealViewModel>>(meals.Data), meals.PageNumber, meals.PageSize);
+            response.TotalRecords = meals.TotalRecords;
             return Ok(response);
 
         }

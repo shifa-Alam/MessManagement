@@ -67,7 +67,7 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<mat-paginator  [length]="100"
+<mat-paginator  [length]="totalRecords"
               [pageSize]="filter.pageSize"
               [pageSizeOptions]="[10, 25,50, 100]"
               (page)="pageChange($event)"
