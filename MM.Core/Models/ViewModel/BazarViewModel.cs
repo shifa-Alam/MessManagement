@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MM.Core.Models
+namespace MM.Core.Models.ViewModel
 {
     public class BazarViewModel
     {
@@ -17,7 +17,7 @@ namespace MM.Core.Models
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public bool Active { get; set; }
-        public string ?MemberFirstName { get; set; }
-        public string ?MemberLastName { get; set; }
+        public string? MemberFirstName { get; set; }
+        public string? MemberLastName { get; set; }
     }
 }

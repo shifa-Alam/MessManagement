@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MessManagement.Core.Helpers;
+using Microsoft.EntityFrameworkCore;
 using MM.Core.Entities;
 using MM.Core.Infra.Repos;
+using MM.Core.Models.FilterModel;
+using MM.Core.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +22,7 @@ namespace MM.Repo
             try
             {
                 var result = context.Meals.Where(e => e.MemberId == memberId && (e.MealDate >= startDate && e.MealDate <= endDate)).ToList();
-                
+
                 return result;
             }
             catch (Exception)
@@ -30,12 +33,52 @@ namespace MM.Repo
         }
         public override IEnumerable<Meal> GetAll()
         {
-            var meals = context.Meals.Include(e => e.Member).OrderByDescending(e=>e.MealDate).ToList();
+            var meals = context.Meals.Include(e => e.Member).OrderByDescending(e => e.MealDate).ToList();
             return meals;
+        }
+
+        public IEnumerable<Meal> GetWithFilter(MealFilter filter)
+        {
+            var validFilter = new BaseFilter(filter.PageNumber, filter.PageSize);
+            var response = context.Meals?.Include(e => e.Member)
+                .Where(e => e.MealDate >= filter.StartDate
+                    && e.MealDate <= filter.EndDate
+                    && (!string.IsNullOrEmpty(filter.MemberName) ? (e.Member.FirstName.Contains(filter.MemberName) || e.Member.LastName.Contains(filter.MemberName)) : true))
+                .OrderByDescending(e => e.MealDate)
+                .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+               .Take(validFilter.PageSize);
+
+
+            return response;
+        }
+        public PagedResponse<List<Meal>> GetWithFilterReplica(MealFilter filter)
+        {
+            var validFilter = new BaseFilter(filter.PageNumber, filter.PageSize);
+            var response = context.Meals?.Include(e => e.Member)
+                .Where(e => e.MealDate >= filter.StartDate
+                    && e.MealDate <= filter.EndDate
+                    && (!string.IsNullOrEmpty(filter.MemberName) ? (e.Member.FirstName.Contains(filter.MemberName) || e.Member.LastName.Contains(filter.MemberName)) : true))
+                .OrderByDescending(e => e.MealDate)
+                .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+               .Take(validFilter.PageSize);
+
+
+            var finalResponse = new PagedResponse<List<Meal>>(response.ToList(), filter.PageNumber, filter.PageSize);
+
+            finalResponse.TotalRecords = context.Meals
+                .Where(e => e.MealDate >= filter.StartDate
+                    && e.MealDate <= filter.EndDate
+                    && (!string.IsNullOrEmpty(filter.MemberName) ? (e.Member.FirstName.Contains(filter.MemberName) || e.Member.LastName.Contains(filter.MemberName)) : true)
+                    
+                    ).Count();
+
+
+
+            return finalResponse;
         }
     }
 
-   
+
     //public class MealRepo : IMealRepo
     //{
     //    private readonly MMDBContext _mmDbContext;

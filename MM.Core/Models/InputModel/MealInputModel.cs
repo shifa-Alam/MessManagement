@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MM.Core.Models
+namespace MM.Core.Models.InputModel
 {
-    public class BazarInputModel
+    public class MealInputModel
     {
 
         public long MemberId { get; set; }
-        public decimal Amount { get; set; }
-        public DateTime BazarDate { get; set; }
+        public double Quantity { get; set; }
+        public DateTime MealDate { get; set; }
 
         public long Id { get; set; }
         public DateTime CreatedDate { get; set; }

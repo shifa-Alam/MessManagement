@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using MessManagement.Core.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using MM.Core.Entities;
-using MM.Core.Models;
+using MM.Core.Models.InputModel;
+using MM.Core.Models.ViewModel;
 using MM.Core.Services;
 
 
@@ -128,8 +130,8 @@ namespace MessManagement.Web.Controllers
                 report.TotalExpence += memberwiseExpense.Sum(e => e.Amount);
 
             }
-
-            report.MealRate = (double)report.TotalExpence / report.TotalMeal;
+            if (report.TotalMeal > 0 && report.TotalExpence > 0)
+                report.MealRate = (double)report.TotalExpence / report.TotalMeal;
 
             report.MemberReports = memberReports;
             foreach (var m in report.MemberReports)
@@ -143,7 +145,7 @@ namespace MessManagement.Web.Controllers
 
         }
 
-       
+
 
         public override void Dispose()
         {
@@ -155,20 +157,20 @@ namespace MessManagement.Web.Controllers
 
     public class Report
     {
-        public double TotalMeal { get; set; }
-        public decimal TotalExpence { get; set; }
-        public double MealRate { get; set; }
+        public double TotalMeal { get; set; } = 0;
+        public decimal TotalExpence { get; set; } = 0;
+        public double MealRate { get; set; } = 0;
         public IList<MemberReport>? MemberReports { get; set; }
     }
 
     public class MemberReport
     {
         public string? MemberName { get; set; }
-        public double MealCount { get; set; }
-        public decimal ExpenceAmount { get; set; }
-        public double TotalConsume { get; set; }
+        public double MealCount { get; set; } = 0;
+        public decimal ExpenceAmount { get; set; } = 0;
+        public double TotalConsume { get; set; } = 0;
 
-        public double NetAmount { get; set; }
+        public double NetAmount { get; set; } = 0;
 
     }
 }

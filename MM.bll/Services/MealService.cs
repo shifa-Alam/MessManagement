@@ -1,5 +1,7 @@
-﻿using MM.Core.Entities;
+﻿using MessManagement.Core.Helpers;
+using MM.Core.Entities;
 using MM.Core.Infra.Repos;
+using MM.Core.Models.FilterModel;
 using MM.Core.Services;
 
 
@@ -78,6 +80,19 @@ namespace MM.bll.Services
         public override void Dispose()
         {
             _repo?.Dispose();
+        }
+
+        public IEnumerable<Meal> GetWithFilter(MealFilter filter)
+        {
+            filter.StartDate= filter.StartDate.Date;
+            filter.EndDate=filter.EndDate.AddDays(1).AddSeconds(-1);
+            return _repo.MealR.GetWithFilter(filter);
+        }
+        public PagedResponse<List<Meal>> GetWithFilterReplica(MealFilter filter)
+        {
+            filter.StartDate = DateUtil.StartOfTheDay(filter.StartDate);
+            filter.EndDate = DateUtil.EndOfTheDay(filter.EndDate);
+            return _repo.MealR.GetWithFilterReplica(filter);
         }
     }
 }

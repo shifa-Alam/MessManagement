@@ -1,67 +1,75 @@
-
-
 <div class="row">
-    <div class="col-10">
-        <mat-form-field class="example-full-width">
-          <input matInput (keyup)="applyFilter($event)" placeholder="Filter"  />
-        </mat-form-field>
-    </div>
-    
-    <div class="col-2"  style="padding-top: 15px;">
-      <button mat-mini-fab color="primary" (click)="add()" >
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
+  <div class="col-4">
+    <mat-form-field class="example-full-width">
+      <input matInput [ngModel]="filter.memberName" (ngModelChange)="onNameChange($event)" placeholder="Search With Name" />
+    </mat-form-field>
   </div>
-  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
-  <table mat-table [dataSource]="dataSource">
-  
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-  
-    <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Sl. No</th>
-      <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
-    </ng-container>
-    <ng-container matColumnDef="mealDate">
-      <th mat-header-cell *matHeaderCellDef> Meal Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.mealDate | date}} </td>
-    </ng-container>
-    <!-- <ng-container matColumnDef="image">
-      <th mat-header-cell *matHeaderCellDef>Pic</th>
-      <td mat-cell *matCellDef="let i=index"> <img src="../../assets/images/person-5.png"  style="width:30px; height:30px;" > </td>
-    </ng-container> -->
-   
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="memberName">
-      <th mat-header-cell *matHeaderCellDef> Member </th>
-      <td mat-cell *matCellDef="let element"> <img src="../../assets/images/person-5.png"  style="width:30px; height:30px;" > &nbsp; {{element.memberFirstName}} {{element.memberLastName}} </td>
-    </ng-container>
-  
-    <!-- Weight Column -->
-    <ng-container matColumnDef="quantity">
-      <th mat-header-cell *matHeaderCellDef> Quantity </th>
-      <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
-    </ng-container>
-  
-    <!-- Symbol Column -->
+  <div class="col-3">
+    <mat-form-field class="example-full-width">
+      <input matInput [matDatepicker]="picker" [(ngModel)]="filter.startDate" (dateChange)="onStartChange($event)">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  </div>
+  <div class="col-3">
+    <mat-form-field class="example-full-width">
+      <input matInput [matDatepicker]="picker2" [(ngModel)]="filter.endDate" (dateChange)="onEndChange($event)">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+  </div>
 
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef> Action </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="primary" (click)="edit(element)">
-          <mat-icon>edit</mat-icon>
-        </button>
-  
-        <button mat-icon-button color="warn" (click)="delete(element.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  
+  <div class="col-2" align="end" style="padding-top: 15px;">
+    <button mat-mini-fab color="primary" (click)="add()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<table mat-table [dataSource]="dataSource">
+
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> Sl. No</th>
+    <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
+  </ng-container>
+  <ng-container matColumnDef="mealDate">
+    <th mat-header-cell *matHeaderCellDef> Meal Date </th>
+    <td mat-cell *matCellDef="let element"> {{element.mealDate | date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="memberName">
+    <th mat-header-cell *matHeaderCellDef> Member </th>
+    <td mat-cell *matCellDef="let element"> <img src="../../assets/images/person-5.png"
+        style="width:30px; height:30px;"> &nbsp; {{element.memberFirstName}} {{element.memberLastName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef> Quantity </th>
+    <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="primary" (click)="edit(element)">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" (click)="delete(element.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator  [length]="totalRecords"
+              [pageSize]="filter.pageSize"
+              [pageSizeOptions]="[10, 25,50, 100]"
+              (page)="pageChange($event)"
+              aria-label="Select page">
+</mat-paginator>

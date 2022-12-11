@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MM.Core.Entities;
-using MM.Core.Models;
+using MM.Core.Models.InputModel;
+using MM.Core.Models.ViewModel;
 using MM.Core.Services;
 using System.Diagnostics.Metrics;
 using System.Reflection;

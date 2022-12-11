@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MM.Core.Entities;
-using MM.Core.Models;
+using MM.Core.Models.InputModel;
+using MM.Core.Models.ViewModel;
 
 namespace MessManagement.Web.Helpers
 {
