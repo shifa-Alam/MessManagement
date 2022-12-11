@@ -116,7 +116,7 @@ namespace MessManagement.Web.Controllers
             var response =(IPagedList<Meal>)customPagedList;
             //var r = new PagedResponse<List<MealViewModel>>(_mapper.Map<List<MealViewModel>>(response.Subset), response.PageNumber, response.PageSize);
             var r = _mapper.Map< IPagedList < Meal > ,ICustomPagedList < MealViewModel >> (response);
-            return Ok(response);
+            return Ok(r);
 
         }
 
