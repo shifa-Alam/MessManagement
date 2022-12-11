@@ -33,7 +33,7 @@ export class BazarLandingComponent implements OnInit {
     this.getBazars();
   }
   setColumn() {
-    this.displayedColumns = ['id', 'bazarDate', 'image', 'memberName', 'amount', 'action'];
+    this.displayedColumns = ['id', 'bazarDate', 'memberName', 'amount', 'action'];
   }
   initFilters() {
     var date = new Date();
