@@ -25,7 +25,7 @@ builder.Services.AddScoped<IMealService, MealService>();
 builder.Services.AddScoped<IMealRepo, MealRepo>();
 builder.Services.AddScoped<IBazarService, BazarService>();
 builder.Services.AddScoped<IBazarRepo, BazarRepo>();
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 //builder.Services.AddMvc()
 //                .AddApplicationPart(typeof(WeatherForecastController).Assembly)

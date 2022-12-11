@@ -12,8 +12,12 @@ namespace MessManagement.Web.Helpers
             CreateMap<MemberInputModel, Member>();
             CreateMap<BazarInputModel, Bazar>();
 
-            CreateMap<Bazar, BazarViewModel>();
-            CreateMap<Meal, MealViewModel>();
+            CreateMap<Bazar, BazarViewModel>()
+                .ForMember(dest => dest.MemberFirstName, m => m.MapFrom(src => src.Member.FirstName))
+                .ForMember(dest => dest.MemberLastName, m => m.MapFrom(src => src.Member.LastName));
+            CreateMap<Meal, MealViewModel>()
+                 .ForMember(dest => dest.MemberFirstName, m => m.MapFrom(src => src.Member.FirstName))
+                .ForMember(dest => dest.MemberLastName, m => m.MapFrom(src => src.Member.LastName));
             CreateMap<Member, MemberViewModel>();
         }
     }
