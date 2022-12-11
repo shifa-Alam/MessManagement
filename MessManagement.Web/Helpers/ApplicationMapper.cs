@@ -22,12 +22,10 @@ namespace MessManagement.Web.Helpers
                 .ForMember(dest => dest.MemberLastName, m => m.MapFrom(src => src.Member.LastName));
             CreateMap<Member, MemberViewModel>();
 
-            CreateMap(typeof(IPagedList<>), typeof(ICustomPagedList<>)).PreserveReferences().ConvertUsing(typeof(PagedListConverter<,>));
             CreateMap(typeof(PagedList<>), typeof(CustomPagedList<>)).ReverseMap().PreserveReferences();
-            //CreateMap(typeof(PagedList<,>), typeof(CustomPagedList<>));
-
-            //CreateMap(typeof(ICustomPagedList<>), typeof(ICustomPagedList<>)).PreserveReferences().ConvertUsing(typeof(CustomPagedListConverter<,>));
-            //CreateMap(typeof(ICustomPagedList<>), typeof(CustomPagedList<>)).ReverseMap().PreserveReferences();
+            CreateMap(typeof(IPagedList<>), typeof(ICustomPagedList<>)).PreserveReferences().ConvertUsing(typeof(PagedListConverter<,>));
+           
+            
         }
     }
 }

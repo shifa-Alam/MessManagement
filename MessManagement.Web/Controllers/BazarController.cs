@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
+using MessManagement.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using MM.bll.Services;
 using MM.Core.Entities;
+using MM.Core.Models.FilterModel;
 using MM.Core.Models.InputModel;
 using MM.Core.Models.ViewModel;
 using MM.Core.Services;
 using System.Diagnostics.Metrics;
 using System.Reflection;
+using X.PagedList;
 
 namespace MessManagement.Web.Controllers
 {
@@ -33,12 +37,7 @@ namespace MessManagement.Web.Controllers
         [Route("SaveBazar")]
         public IActionResult SaveBazar(BazarInputModel bazarIn)
         {
-            //Bazar m = new Bazar();
-            //m.MemberId = bazarIn.MemberId;
-            //m.Amount = bazarIn.Amount;
-            //m.BazarDate = bazarIn.BazarDate;
             var bazar = _mapper.Map<Bazar>(bazarIn);
-
             _bazarService.Save(bazar);
             return Ok();
         }
@@ -47,12 +46,7 @@ namespace MessManagement.Web.Controllers
         [Route("UpdateBazar")]
         public IActionResult UpdateBazar(BazarInputModel bazarIn)
         {
-            //Bazar m = new Bazar();
-            //m.Id = bazarIn.Id;
-            //m.MemberId = bazarIn.MemberId;
-            //m.Amount = bazarIn.Amount;
-            //m.BazarDate = bazarIn.BazarDate;
-
+           
             var bazar = _mapper.Map<Bazar>(bazarIn);
 
             _bazarService.Update(bazar);
@@ -81,28 +75,14 @@ namespace MessManagement.Web.Controllers
 
         [HttpGet]
         [Route("GetBazars")]
-        public IActionResult GetBazars()
+        public IActionResult GetBazars([FromQuery] BazarFilter filter)
         {
 
-            var bazars = _bazarService.Get();
-            //var bazarViewModels = new List<BazarViewModel>();
-            //foreach (var bazar in bazars)
-            //{
-            //    BazarViewModel vm = new BazarViewModel();
-            //    vm.Id = bazar.Id;
-            //    vm.MemberId = bazar.MemberId;
-            //    vm.Amount = bazar.Amount;
-            //    vm.BazarDate = bazar.BazarDate;
-            //    vm.CreatedDate = bazar.CreatedDate;
-            //    vm.ModifiedDate = bazar.ModifiedDate;
-            //    vm.Active = bazar.Active;
-            //    vm.MemberFirstName = bazar.Member.FirstName;
-            //    vm.MemberLastName = bazar.Member.LastName;
-            //    bazarViewModels.Add(vm);
+            var customPagedList = _bazarService.Get(filter);
 
-            //}
-            var mamppedModel = _mapper.Map<List<BazarViewModel>>(bazars);
-            return Ok(mamppedModel);
+            var pagedList = _mapper.Map<IPagedList<Bazar>, ICustomPagedList<BazarViewModel>>((IPagedList<Bazar>)customPagedList);
+
+            return Ok(pagedList);
 
         }
 

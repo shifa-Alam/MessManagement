@@ -1,4 +1,5 @@
 ﻿using MM.Core.Entities;
+using MM.Core.Models.FilterModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace MM.Core.Services
         public void DeleteById(long id);
         public Bazar SoftDelete(Bazar entity);
         public Bazar FindById(long id);
-        public IEnumerable<Bazar> Get();
+        public IEnumerable<Bazar> Get(BazarFilter filter);
         public IEnumerable<Bazar> GetByMemberIdAndDateRange(long memberId, DateTime startDate, DateTime endDate);
     }
 }

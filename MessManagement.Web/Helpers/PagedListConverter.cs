@@ -6,11 +6,9 @@ using X.PagedList;
 
 namespace MessManagement.Web.Helpers
 {
-    public class PagedListConverter<TSource, TDestination> : ITypeConverter<IPagedList<TSource>,
-        ICustomPagedList<TDestination>> where TSource : class where TDestination : class
+    public class PagedListConverter<TSource, TDestination> : ITypeConverter<IPagedList<TSource>,ICustomPagedList<TDestination>> where TSource : class where TDestination : class
     {
-        public ICustomPagedList<TDestination> Convert(IPagedList<TSource> source,
-            ICustomPagedList<TDestination> destination, ResolutionContext context)
+        public ICustomPagedList<TDestination> Convert(IPagedList<TSource> source,ICustomPagedList<TDestination> destination, ResolutionContext context)
         {
             try
             {

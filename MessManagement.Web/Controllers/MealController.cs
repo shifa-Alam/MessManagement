@@ -106,17 +106,11 @@ namespace MessManagement.Web.Controllers
         [Route("GetMeals")]
         public IActionResult GetMeals([FromQuery] MealFilter filter)
         {
-
-            var customPagedList = _mealService.GetWithFilterReplica(filter);
-            //var mappedModel = _mapper.Map<List<MealViewModel>>(meals.Data);
-
-            //var response = new PagedResponse<List<MealViewModel>>(_mapper.Map<List<MealViewModel>>(meals.Data), meals.PageNumber, meals.PageSize);
-            //response.TotalRecords = meals.TotalRecords; 
-            
-            var response =(IPagedList<Meal>)customPagedList;
-            //var r = new PagedResponse<List<MealViewModel>>(_mapper.Map<List<MealViewModel>>(response.Subset), response.PageNumber, response.PageSize);
-            var r = _mapper.Map< IPagedList < Meal > ,ICustomPagedList < MealViewModel >> (response);
-            return Ok(r);
+            var customPagedList = _mealService.Get(filter);
+         
+            var pagedList = _mapper.Map<IPagedList<Meal>, ICustomPagedList<MealViewModel>>((IPagedList<Meal>)customPagedList);
+           
+            return Ok(pagedList);
 
         }
 

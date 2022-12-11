@@ -12,8 +12,6 @@ namespace MM.Core.Infra.Repos
     public interface IMealRepo : IGenericRepository<Meal>
     {
         IEnumerable<Meal> GetByMemberIdAndDateRange(long memberId, DateTime startDate, DateTime endDate);
-        IEnumerable<Meal> GetWithFilter(MealFilter filter);
-        //PagedResponse<List<Meal>> GetWithFilterReplica(MealFilter filter);
-        IEnumerable<Meal> GetWithFilterReplica(MealFilter filter);
+        IEnumerable<Meal> GetFilterable(MealFilter filter);
     }
 }

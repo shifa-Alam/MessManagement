@@ -56,11 +56,6 @@ namespace MM.bll.Services
             return _repo.MealR.GetById(id);
         }
 
-        public IEnumerable<Meal> Get()
-        {
-            return _repo.MealR.GetAll();
-        }
-
         public IEnumerable<Meal> GetByMemberIdAndDateRange(long memberId, DateTime startDate, DateTime endDate)
         {
             return _repo.MealR.GetByMemberIdAndDateRange(memberId, startDate, endDate);
@@ -82,25 +77,13 @@ namespace MM.bll.Services
             _repo?.Dispose();
         }
 
-        public IEnumerable<Meal> GetWithFilter(MealFilter filter)
-        {
-            filter.StartDate = filter.StartDate.Date;
-            filter.EndDate = filter.EndDate.AddDays(1).AddSeconds(-1);
-            return _repo.MealR.GetWithFilter(filter);
-        }
-        //public PagedResponse<List<Meal>> GetWithFilterReplica(MealFilter filter)
-        //{
-        //    filter.StartDate = DateUtil.StartOfTheDay(filter.StartDate);
-        //    filter.EndDate = DateUtil.EndOfTheDay(filter.EndDate);
-        //    return _repo.MealR.GetWithFilterReplica(filter);
-        //}
-        public IEnumerable<Meal> GetWithFilterReplica(MealFilter filter)
+        public IEnumerable<Meal> Get(MealFilter filter)
         {
             filter.StartDate = DateUtil.StartOfTheDay(filter.StartDate);
             filter.EndDate = DateUtil.EndOfTheDay(filter.EndDate);
 
-            var data = _repo.MealR.GetWithFilterReplica(filter);
+            var data = _repo.MealR.GetFilterable(filter);
             return data;
-        }
+        }       
     }
 }

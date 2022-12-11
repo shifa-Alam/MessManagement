@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MM.Core.Entities;
 using MM.Core.Infra.Repos;
+using MM.Core.Models.FilterModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace MM.Repo
 {
@@ -28,82 +30,17 @@ namespace MM.Repo
             }
         }
 
-        public override IEnumerable<Bazar> GetAll()
+        public IEnumerable<Bazar> GetFilterable(BazarFilter filter)
         {
-            var bazars = context.Bazars.Include(e => e.Member).OrderByDescending(e => e.BazarDate).ToList();
-            return bazars;
+            var validFilter = new BaseFilter(filter.PageNumber, filter.PageSize);
+            IQueryable<Bazar> queryResult = context.Bazars?.Include(e => e.Member);
+            queryResult = queryResult.Where(e => e.BazarDate >= filter.StartDate
+                    && e.BazarDate <= filter.EndDate
+                    && (!string.IsNullOrEmpty(filter.MemberName) ? (e.Member.FirstName.Contains(filter.MemberName) || e.Member.LastName.Contains(filter.MemberName)) : true))
+                .OrderByDescending(e => e.BazarDate);
+
+            var pagedData = queryResult.ToPagedList(filter.PageNumber, filter.PageSize);
+            return pagedData;
         }
-
-        //private readonly MMDBContext     _mmDbContext;
-
-        //public BazarRepo(MMDBContext mmDbContext)
-        //{
-        //    _mmDbContext = mmDbContext;
-        //}
-
-        //public Bazar Save(Bazar Bazar)
-        //{
-        //    var result = _mmDbContext.Bazars.Add(Bazar);
-        //    _mmDbContext.SaveChanges();
-        //    return result.Entity;
-        //}
-
-        //public Bazar Update(Bazar m)
-        //{
-        //    var result = _mmDbContext.Bazars
-        //            .FirstOrDefault(e => e.Id == m.Id);
-
-        //    if (result != null)
-        //    {
-        //        result.Amount = m.Amount;
-        //        result.BazarDate = m.BazarDate;
-        //        result.ModifiedDate = DateTime.Now;
-
-        //        _mmDbContext.SaveChanges();
-
-        //        return result;
-        //    }
-
-        //    return null;
-        //}
-        //public void Delete(long id)
-        //{
-        //    var result =  _mmDbContext.Bazars
-        //         .FirstOrDefault(e => e.Id == id);
-        //    if (result != null)
-        //    {
-        //        _mmDbContext.Bazars.Remove(result);
-        //         _mmDbContext.SaveChangesAsync();
-        //    }
-
-        //}
-
-        //public Bazar FindById(long id)
-        //{
-        //    var Bazar = _mmDbContext.Bazars.Find(id);
-        //    return Bazar;
-        //}
-
-        //public IEnumerable<Bazar> Get()
-        //{
-
-        //   return _mmDbContext.Bazars.Include(e=>e.Member).ToList();
-        //}
-
-        //public IEnumerable<Bazar> GetByMemberIdAndDateRange(long memberId, DateTime startDate, DateTime endDate)
-        //    {
-        //        try
-        //        {
-        //            IQueryable<Bazar> result = _mmDbContext.Bazars;
-
-        //            return result.Where(e => e.MemberId == memberId && e.BazarDate >= startDate && e.BazarDate <= endDate).ToList();
-        //        }
-        //        catch (Exception)
-        //        {
-
-        //            throw;
-        //        }
-
-        //    }
     }
 }

@@ -1,5 +1,7 @@
-﻿using MM.Core.Entities;
+﻿using MessManagement.Core.Helpers;
+using MM.Core.Entities;
 using MM.Core.Infra.Repos;
+using MM.Core.Models.FilterModel;
 using MM.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -56,9 +58,13 @@ namespace MM.bll.Services
             return _repo.BazarR.GetById(id);
         }
 
-        public IEnumerable<Bazar> Get()
+        public IEnumerable<Bazar> Get( BazarFilter filter)
         {
-            return _repo.BazarR.GetAll();
+            filter.StartDate = DateUtil.StartOfTheDay(filter.StartDate);
+            filter.EndDate = DateUtil.EndOfTheDay(filter.EndDate);
+
+            var data = _repo.BazarR.GetFilterable(filter);
+            return data;
         }
 
         public IEnumerable<Bazar> GetByMemberIdAndDateRange(long id, DateTime startDate, DateTime endDate)
