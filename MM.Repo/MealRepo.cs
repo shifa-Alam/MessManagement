@@ -34,7 +34,7 @@ namespace MM.Repo
         }
         public IEnumerable<Meal> GetFilterable(MealFilter filter)
         {
-            var validFilter = new BaseFilter(filter.PageNumber, filter.PageSize);
+            //var validFilter = new BaseFilter(filter.PageNumber, filter.PageSize);
             IQueryable<Meal> queryResult = context.Meals?.Include(e => e.Member);
             queryResult = queryResult.Where(e => e.MealDate >= filter.StartDate
                     && e.MealDate <= filter.EndDate

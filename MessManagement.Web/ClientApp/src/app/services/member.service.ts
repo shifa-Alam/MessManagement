@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MemberFilter } from '../Models/filters/memberFilter';
 import { Member } from '../Models/member';
 import { BaseService } from './base.service';
 
@@ -16,11 +17,12 @@ export class MemberService extends BaseService {
     return super.deleteRequest(subUrl + "DeleteMember", id);
   }
 
-  //constructor(http: HttpClient) {
-  //  super(http)
-  //}
-  public getMember(): Observable<any> {
-    return super.getRequest(subUrl + "GetMembers");
+ 
+  // public getMember(): Observable<any> {
+  //   return super.getRequest(subUrl + "GetMembers");
+  // }
+  public getMember(filter: MemberFilter): Observable<any> {
+    return super.getRequest(subUrl + "GetMembers", filter);
   }
   saveMember(member: Member): Observable<any> {
     return super.postRequest(subUrl + "SaveMember", member);

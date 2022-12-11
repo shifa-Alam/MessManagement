@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { PageEvent } from '@angular/material/paginator';
+
 import { MatTableDataSource } from '@angular/material/table';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { MemberAddComponent } from '../member-add/member-add.component';
+import { MemberFilter } from '../Models/filters/memberFilter';
 import { Member } from '../Models/member';
 import { MemberService } from '../services/member.service';
 
@@ -13,54 +14,33 @@ import { MemberService } from '../services/member.service';
   templateUrl: './member-landing.component.html',
   styleUrls: ['./member-landing.component.css']
 })
-export class MemberLandingComponent implements OnInit, AfterViewInit {
+export class MemberLandingComponent implements OnInit {
   dataSource!: MatTableDataSource<Member>;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  members: Member[] = [];
   displayedColumns: string[] = [];
-  color: string;
   isLoading: boolean = false;
-
+  filter: MemberFilter = new MemberFilter();
+  totalRecords: number = 0;
   constructor(private service: MemberService, public dialog: MatDialog) {
-    this.color = "orange";
+
   }
-  ngAfterViewInit(): void {
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-  }
+
 
   ngOnInit(): void {
     this.setColumn();
+    this.initFilters();
     this.getMembers();
   }
   setColumn() {
     this.displayedColumns = ['id', 'image', 'name', 'mobile', 'district', 'action'];
   }
+  initFilters() {
 
-  getMembers() {
-    this.isLoading = true;
-    this.service.getMember().subscribe(result => {
-      this.members = result;
-      this.dataSource = new MatTableDataSource(this.members);
-      this.isLoading = false;
-    },
-      error => {
-        console.error(error);
-        this.isLoading = false;
-      }
-    );
+    // this.filter.memberName = "";
+    // this.filter.mobileNumber = "";
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
+
   add() {
     const dialogRef = this.dialog.open(MemberAddComponent, {
       position: { top: '100px' },
@@ -105,5 +85,34 @@ export class MemberLandingComponent implements OnInit, AfterViewInit {
       });
     }
   }
- 
+  onNameChange(event: any) {
+    if (event)
+      this.filter.memberName = event;
+    this.getMembers();
+  }
+  onMobileChange(event: any) {
+    if (event)
+      this.filter.mobileNumber = event;
+    this.getMembers();
+  }
+  pageChange(e: PageEvent) {
+    this.filter.pageNumber = e.pageIndex + 1;
+    this.filter.pageSize = e.pageSize;
+    this.getMembers();
+
+  }
+  getMembers() {
+    this.isLoading = true;
+    this.service.getMember(this.filter).subscribe(result => {
+      this.totalRecords = result.totalItemCount;
+      this.dataSource = new MatTableDataSource(result.subset);
+      this.isLoading = false;
+    },
+      error => {
+        this.dataSource = new MatTableDataSource();
+        this.isLoading = false;
+      }
+    );
+  }
+
 }

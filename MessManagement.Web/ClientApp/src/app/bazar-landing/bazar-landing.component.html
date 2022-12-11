@@ -1,18 +1,34 @@
 
 
 <div class="row">
-    <div class="col-10">
-        <mat-form-field class="example-full-width">
-          <input matInput (keyup)="applyFilter($event)" placeholder="Filter"  />
-        </mat-form-field>
-    </div>
-    
-    <div class="col-2"  style="padding-top: 15px;">
-      <button mat-mini-fab color="primary" (click)="add()" >
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
+  <div class="col-4">
+    <mat-form-field class="example-full-width">
+      <input matInput [ngModel]="filter.memberName" (ngModelChange)="onNameChange($event)" placeholder="Search With Name" />
+    </mat-form-field>
   </div>
+  <div class="col-3">
+    <mat-form-field class="example-full-width">
+      <input matInput [matDatepicker]="picker" [(ngModel)]="filter.startDate" (dateChange)="onStartChange($event)">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  </div>
+  <div class="col-3">
+    <mat-form-field class="example-full-width">
+      <input matInput [matDatepicker]="picker2" [(ngModel)]="filter.endDate" (dateChange)="onEndChange($event)">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+  </div>
+
+  <div class="col-2" align="end" style="padding-top: 15px;">
+    <button mat-mini-fab color="primary" (click)="add()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
   <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
   <table mat-table [dataSource]="dataSource">
   
@@ -64,4 +80,9 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  
+  <mat-paginator  [length]="totalRecords"
+              [pageSize]="filter.pageSize"
+              [pageSizeOptions]="[10, 25,50, 100]"
+              (page)="pageChange($event)"
+              aria-label="Select page">
+</mat-paginator>

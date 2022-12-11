@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -6,9 +6,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { MealAddRangeComponent } from '../meal-add-range/meal-add-range.component';
 import { MealAddComponent } from '../meal-add/meal-add.component';
+import { MealFilter } from '../Models/filters/mealFilter';
 import { Meal } from '../Models/meal';
 import { MealService } from '../services/meal.service';
-import { MealFilter } from '../Models/filters/mealFIlter';
 import { DateUtil } from '../utils/DateUtil';
 
 @Component({
@@ -18,27 +18,26 @@ import { DateUtil } from '../utils/DateUtil';
 })
 export class MealLandingComponent implements OnInit {
   dataSource!: MatTableDataSource<Meal>;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+
   isLoading: boolean = false;
-  meals: Meal[] = [];
+
   displayedColumns: string[] = [];
 
   filter: MealFilter = new MealFilter();
-  totalRecords: any;
+  totalRecords: number = 0;
 
   constructor(private service: MealService, public dialog: MatDialog) {
 
   }
-  // ngAfterViewInit(): void {
-  //   // this.dataSource.paginator = this.paginator;
-  //   // this.dataSource.sort = this.sort;
-  // }
 
   ngOnInit(): void {
     this.setColumn();
     this.initFilters();
     this.getMeals();
+  }
+
+  setColumn() {
+    this.displayedColumns = ['id', 'mealDate', 'memberName', 'quantity', 'action'];
   }
   initFilters() {
     var date = new Date();
@@ -46,9 +45,6 @@ export class MealLandingComponent implements OnInit {
     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     this.filter.startDate = DateUtil.ConvertToActualDate(firstDay.toLocaleDateString());
     this.filter.endDate = DateUtil.ConvertToActualDate(lastDay.toLocaleDateString());
-  }
-  setColumn() {
-    this.displayedColumns = ['id', 'mealDate', 'memberName', 'quantity', 'action'];
   }
   add() {
     const dialogRef = this.dialog.open(MealAddRangeComponent, {
@@ -117,17 +113,14 @@ export class MealLandingComponent implements OnInit {
   }
   getMeals() {
     this.isLoading = true;
-
     this.service.getMeal(this.filter).subscribe(result => {
-      this.meals = result.subset;
       this.totalRecords = result.totalItemCount;
-
-      this.dataSource = new MatTableDataSource(this.meals);
+      this.dataSource = new MatTableDataSource(result.subset);
 
       this.isLoading = false;
     },
       error => {
-
+        this.dataSource = new MatTableDataSource();
         this.isLoading = false;
       }
     );

@@ -32,8 +32,9 @@ namespace MM.Repo
 
         public IEnumerable<Bazar> GetFilterable(BazarFilter filter)
         {
-            var validFilter = new BaseFilter(filter.PageNumber, filter.PageSize);
+            //var validFilter = new BaseFilter(filter.PageNumber, filter.PageSize);
             IQueryable<Bazar> queryResult = context.Bazars?.Include(e => e.Member);
+
             queryResult = queryResult.Where(e => e.BazarDate >= filter.StartDate
                     && e.BazarDate <= filter.EndDate
                     && (!string.IsNullOrEmpty(filter.MemberName) ? (e.Member.FirstName.Contains(filter.MemberName) || e.Member.LastName.Contains(filter.MemberName)) : true))

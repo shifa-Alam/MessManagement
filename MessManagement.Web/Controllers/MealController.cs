@@ -119,7 +119,6 @@ namespace MessManagement.Web.Controllers
         [Route("GetMembers")]
         public IActionResult GetMembers()
         {
-
             var members = _memberService.Get();
             var mappedModel = _mapper.Map<List<MemberViewModel>>(members);
             return Ok(mappedModel);

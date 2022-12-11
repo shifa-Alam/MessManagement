@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using MessManagement.Core.Helpers;
+using MessManagement.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using MM.Core.Entities;
+using MM.Core.Models.FilterModel;
 using MM.Core.Models.InputModel;
 using MM.Core.Models.ViewModel;
 using MM.Core.Services;
-
+using X.PagedList;
 
 namespace MessManagement.Web.Controllers
 {
@@ -35,11 +37,7 @@ namespace MessManagement.Web.Controllers
         [Route("SaveMember")]
         public IActionResult SaveMember(MemberInputModel memberIn)
         {
-            //Member m = new Member();
-            //m.FirstName = memberIn.FirstName;
-            //m.LastName = memberIn.LastName;
-            //m.MobileNumber = memberIn.MobileNumber;
-            //m.HomeDistrict = memberIn.HomeDistrict;
+           
             var mappedData = _mapper.Map<Member>(memberIn);
 
             _memberService.Save(mappedData);
@@ -49,13 +47,7 @@ namespace MessManagement.Web.Controllers
         [Route("UpdateMember")]
         public IActionResult UpdateMember(MemberInputModel memberIn)
         {
-            //Member m = new Member();
-            //m.Id = memberIn.Id;
-            //m.FirstName = memberIn.FirstName;
-            //m.LastName = memberIn.LastName;
-            //m.MobileNumber = memberIn.MobileNumber;
-            //m.HomeDistrict = memberIn.HomeDistrict;
-            //m.EmergencyContact = memberIn.EmergencyContact;
+            
             var mappedData = _mapper.Map<Member>(memberIn);
 
             _memberService.Update(mappedData);
@@ -89,12 +81,13 @@ namespace MessManagement.Web.Controllers
 
         [HttpGet]
         [Route("GetMembers")]
-        public IActionResult GetMembers()
+        public IActionResult GetMembers([FromQuery] MemberFilter filter)
         {
+            var customPagedList = _memberService.GetFilterable(filter);
 
-            var members = _memberService.Get();
-            var mappedData = _mapper.Map<List<MemberViewModel>>(members);
-            return Ok(mappedData);
+            var pagedList = _mapper.Map<IPagedList<Member>, ICustomPagedList<MemberViewModel>>((IPagedList<Member>)customPagedList);
+
+            return Ok(pagedList);
 
         }
 

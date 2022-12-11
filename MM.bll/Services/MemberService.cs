@@ -1,5 +1,7 @@
-﻿using MM.Core.Entities;
+﻿using MessManagement.Core.Helpers;
+using MM.Core.Entities;
 using MM.Core.Infra.Repos;
+using MM.Core.Models.FilterModel;
 using MM.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -42,7 +44,7 @@ namespace MM.bll.Services
                 _repo.Save();
             }
 
-           
+
         }
         public void DeleteById(long id)
         {
@@ -65,11 +67,20 @@ namespace MM.bll.Services
             return _repo.MemberR.GetAll();
         }
 
-       
+
 
         public override void Dispose()
         {
             _repo?.Dispose();
+        }
+
+        public IEnumerable<Member> GetFilterable(MemberFilter filter)
+        {
+            filter.MemberName = filter.MemberName.Trim();
+            filter.MobileNumber = filter.MobileNumber.Trim();
+
+            var data = _repo.MemberR.GetFilterable(filter);
+            return data;
         }
     }
 }

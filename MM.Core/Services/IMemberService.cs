@@ -1,4 +1,5 @@
 ﻿using MM.Core.Entities;
+using MM.Core.Models.FilterModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace MM.Core.Services
         public Member SoftDelete(Member entity);
         public Member FindById(long id);
         public IEnumerable<Member> Get();
+        public IEnumerable<Member> GetFilterable(MemberFilter filter);
     }
 }
