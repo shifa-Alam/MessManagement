@@ -120,7 +120,7 @@ export class MealLandingComponent implements OnInit {
 
     this.service.getMeal(this.filter).subscribe(result => {
       this.meals = result.data;
-      this.totalRecords = result.totalRecords;
+      this.totalRecords = result.totalItemCount;
 
       this.dataSource = new MatTableDataSource(this.meals);
 

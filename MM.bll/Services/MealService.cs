@@ -76,7 +76,7 @@ namespace MM.bll.Services
             _repo.MealR.AddRange(meals);
             _repo.Save();
         }
-      
+
         public override void Dispose()
         {
             _repo?.Dispose();
@@ -84,15 +84,23 @@ namespace MM.bll.Services
 
         public IEnumerable<Meal> GetWithFilter(MealFilter filter)
         {
-            filter.StartDate= filter.StartDate.Date;
-            filter.EndDate=filter.EndDate.AddDays(1).AddSeconds(-1);
+            filter.StartDate = filter.StartDate.Date;
+            filter.EndDate = filter.EndDate.AddDays(1).AddSeconds(-1);
             return _repo.MealR.GetWithFilter(filter);
         }
-        public PagedResponse<List<Meal>> GetWithFilterReplica(MealFilter filter)
+        //public PagedResponse<List<Meal>> GetWithFilterReplica(MealFilter filter)
+        //{
+        //    filter.StartDate = DateUtil.StartOfTheDay(filter.StartDate);
+        //    filter.EndDate = DateUtil.EndOfTheDay(filter.EndDate);
+        //    return _repo.MealR.GetWithFilterReplica(filter);
+        //}
+        public IEnumerable<Meal> GetWithFilterReplica(MealFilter filter)
         {
             filter.StartDate = DateUtil.StartOfTheDay(filter.StartDate);
             filter.EndDate = DateUtil.EndOfTheDay(filter.EndDate);
-            return _repo.MealR.GetWithFilterReplica(filter);
+
+            var data = _repo.MealR.GetWithFilterReplica(filter);
+            return data;
         }
     }
 }

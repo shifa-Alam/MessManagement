@@ -13,6 +13,7 @@ namespace MM.Core.Infra.Repos
     {
         IEnumerable<Meal> GetByMemberIdAndDateRange(long memberId, DateTime startDate, DateTime endDate);
         IEnumerable<Meal> GetWithFilter(MealFilter filter);
-        PagedResponse<List<Meal>> GetWithFilterReplica(MealFilter filter);
+        //PagedResponse<List<Meal>> GetWithFilterReplica(MealFilter filter);
+        IEnumerable<Meal> GetWithFilterReplica(MealFilter filter);
     }
 }

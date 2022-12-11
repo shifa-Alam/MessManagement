@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace MM.Repo
 {
@@ -51,30 +52,64 @@ namespace MM.Repo
 
             return response;
         }
-        public PagedResponse<List<Meal>> GetWithFilterReplica(MealFilter filter)
+        //public PagedResponse<List<Meal>> GetWithFilterReplica(MealFilter filter)
+        //{
+        //    var validFilter = new BaseFilter(filter.PageNumber, filter.PageSize);
+        //    var response = context.Meals?.Include(e => e.Member)
+        //        .Where(e => e.MealDate >= filter.StartDate
+        //            && e.MealDate <= filter.EndDate
+        //            && (!string.IsNullOrEmpty(filter.MemberName) ? (e.Member.FirstName.Contains(filter.MemberName) || e.Member.LastName.Contains(filter.MemberName)) : true))
+        //        .OrderByDescending(e => e.MealDate)
+        //        .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+        //       .Take(validFilter.PageSize);
+
+
+        //    var finalResponse = new PagedResponse<List<Meal>>(response.ToList(), filter.PageNumber, filter.PageSize);
+
+        //    finalResponse.TotalRecords = context.Meals
+        //        .Where(e => e.MealDate >= filter.StartDate
+        //            && e.MealDate <= filter.EndDate
+        //            && (!string.IsNullOrEmpty(filter.MemberName) ? (e.Member.FirstName.Contains(filter.MemberName) || e.Member.LastName.Contains(filter.MemberName)) : true)
+
+        //            ).Count();
+
+
+
+        //    return finalResponse;
+        //}
+        public IEnumerable<Meal> GetWithFilterReplica(MealFilter filter)
         {
+
             var validFilter = new BaseFilter(filter.PageNumber, filter.PageSize);
-            var response = context.Meals?.Include(e => e.Member)
-                .Where(e => e.MealDate >= filter.StartDate
+            IQueryable<Meal> queryResult = context.Meals?.Include(e => e.Member);
+            queryResult = queryResult.Where(e => e.MealDate >= filter.StartDate
                     && e.MealDate <= filter.EndDate
                     && (!string.IsNullOrEmpty(filter.MemberName) ? (e.Member.FirstName.Contains(filter.MemberName) || e.Member.LastName.Contains(filter.MemberName)) : true))
-                .OrderByDescending(e => e.MealDate)
-                .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
-               .Take(validFilter.PageSize);
+                .OrderByDescending(e => e.MealDate);
+
+            return queryResult.ToPagedList(filter.PageNumber,filter.PageSize);
+
+            //var response = context.Meals?.Include(e => e.Member)
+            //    .Where(e => e.MealDate >= filter.StartDate
+            //        && e.MealDate <= filter.EndDate
+            //        && (!string.IsNullOrEmpty(filter.MemberName) ? (e.Member.FirstName.Contains(filter.MemberName) || e.Member.LastName.Contains(filter.MemberName)) : true))
+            //    .OrderByDescending(e => e.MealDate)
+            //    .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+            //   .Take(validFilter.PageSize);
 
 
-            var finalResponse = new PagedResponse<List<Meal>>(response.ToList(), filter.PageNumber, filter.PageSize);
+            //var finalResponse = new PagedResponse<List<Meal>>(response.ToList(), filter.PageNumber, filter.PageSize);
 
-            finalResponse.TotalRecords = context.Meals
-                .Where(e => e.MealDate >= filter.StartDate
-                    && e.MealDate <= filter.EndDate
-                    && (!string.IsNullOrEmpty(filter.MemberName) ? (e.Member.FirstName.Contains(filter.MemberName) || e.Member.LastName.Contains(filter.MemberName)) : true)
-                    
-                    ).Count();
+            //finalResponse.TotalRecords = context.Meals
+            //    .Where(e => e.MealDate >= filter.StartDate
+            //        && e.MealDate <= filter.EndDate
+            //        && (!string.IsNullOrEmpty(filter.MemberName) ? (e.Member.FirstName.Contains(filter.MemberName) || e.Member.LastName.Contains(filter.MemberName)) : true)
+
+            //        ).Count();
 
 
 
-            return finalResponse;
+            //return queryResult.ToList();
         }
     }
 

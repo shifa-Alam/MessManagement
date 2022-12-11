@@ -10,6 +10,7 @@ using MM.Core.Models.ViewModel;
 using MM.Core.Services;
 using System.Diagnostics.Metrics;
 using System.Reflection;
+using X.PagedList;
 
 namespace MessManagement.Web.Controllers
 {
@@ -106,11 +107,15 @@ namespace MessManagement.Web.Controllers
         public IActionResult GetMeals([FromQuery] MealFilter filter)
         {
 
-            var meals = _mealService.GetWithFilterReplica(filter);
+            var customPagedList = _mealService.GetWithFilterReplica(filter);
             //var mappedModel = _mapper.Map<List<MealViewModel>>(meals.Data);
-          
-            var response = new PagedResponse<List<MealViewModel>>(_mapper.Map<List<MealViewModel>>(meals.Data), meals.PageNumber, meals.PageSize);
-            response.TotalRecords = meals.TotalRecords;
+
+            //var response = new PagedResponse<List<MealViewModel>>(_mapper.Map<List<MealViewModel>>(meals.Data), meals.PageNumber, meals.PageSize);
+            //response.TotalRecords = meals.TotalRecords; 
+            
+            var response =(IPagedList<Meal>)customPagedList;
+            //var r = new PagedResponse<List<MealViewModel>>(_mapper.Map<List<MealViewModel>>(response.Subset), response.PageNumber, response.PageSize);
+            var r = _mapper.Map< IPagedList < Meal > ,ICustomPagedList < MealViewModel >> (response);
             return Ok(response);
 
         }
