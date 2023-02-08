@@ -144,9 +144,7 @@ import { MealAddRangeComponent } from './meal-add-range/meal-add-range.component
     MatNativeDateModule
 
   ],
-  providers: [ DatePipe ,
-
-  ],
+  providers: [ DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
