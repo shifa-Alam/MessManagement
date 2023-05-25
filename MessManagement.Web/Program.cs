@@ -25,6 +25,8 @@ builder.Services.AddScoped<IMealService, MealService>();
 builder.Services.AddScoped<IMealRepo, MealRepo>();
 builder.Services.AddScoped<IBazarService, BazarService>();
 builder.Services.AddScoped<IBazarRepo, BazarRepo>();
+builder.Services.AddScoped<IFundService, FundService>();
+builder.Services.AddScoped<IFundRepo, FundRepo>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 //builder.Services.AddMvc()

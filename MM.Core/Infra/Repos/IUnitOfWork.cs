@@ -21,6 +21,10 @@ namespace MM.Core.Infra.Repos
         {
             get;
         }
+        IFundRepo FundR
+        {
+            get;
+        }
         int Save();
     }
 }

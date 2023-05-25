@@ -4,6 +4,7 @@ using MM.Repo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MM.Repo.Migrations
 {
     [DbContext(typeof(MMDBContext))]
-    partial class MMDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230520151229_fund")]
+    partial class fund
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,9 +76,6 @@ namespace MM.Repo.Migrations
 
                     b.Property<DateTime>("FundDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeduction")
-                        .HasColumnType("bit");
 
                     b.Property<long>("MemberId")
                         .HasColumnType("bigint");

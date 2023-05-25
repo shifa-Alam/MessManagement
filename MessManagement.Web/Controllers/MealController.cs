@@ -25,7 +25,6 @@ namespace MessManagement.Web.Controllers
         private readonly IMapper _mapper;
 
 
-
         public MealController(IMealService mealService, IMemberService memberService, IMapper mapper)
         {
 

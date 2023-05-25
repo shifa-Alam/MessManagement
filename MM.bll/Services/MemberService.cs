@@ -48,9 +48,16 @@ namespace MM.bll.Services
         }
         public void DeleteById(long id)
         {
-            var member = _repo.MemberR.GetById(id);
-            _repo.MemberR.Remove(member);
-            _repo.Save();
+            var existingEntity = _repo.MemberR.GetById(id);
+            if (existingEntity != null)
+            {
+                existingEntity.Active = false;
+                existingEntity.ModifiedDate = DateTime.Now;
+
+                _repo.MemberR.Update(existingEntity);
+                _repo.Save();
+            }
+
         }
         public Member SoftDelete(Member member)
         {

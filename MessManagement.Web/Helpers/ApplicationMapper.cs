@@ -13,6 +13,7 @@ namespace MessManagement.Web.Helpers
             CreateMap<MealInputModel, Meal>();
             CreateMap<MemberInputModel, Member>();
             CreateMap<BazarInputModel, Bazar>();
+            CreateMap<FundInputModel, Fund>();
 
             CreateMap<Bazar, BazarViewModel>()
                 .ForMember(dest => dest.MemberFirstName, m => m.MapFrom(src => src.Member.FirstName))
@@ -20,6 +21,11 @@ namespace MessManagement.Web.Helpers
             CreateMap<Meal, MealViewModel>()
                  .ForMember(dest => dest.MemberFirstName, m => m.MapFrom(src => src.Member.FirstName))
                 .ForMember(dest => dest.MemberLastName, m => m.MapFrom(src => src.Member.LastName));
+
+            CreateMap<Fund, FundViewModel>()
+               .ForMember(dest => dest.MemberFirstName, m => m.MapFrom(src => src.Member.FirstName))
+              .ForMember(dest => dest.MemberLastName, m => m.MapFrom(src => src.Member.LastName));
+
             CreateMap<Member, MemberViewModel>();
 
             CreateMap(typeof(PagedList<>), typeof(CustomPagedList<>)).ReverseMap().PreserveReferences();

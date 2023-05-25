@@ -1,0 +1,57 @@
+<form [formGroup]="fundForm">
+    <div class="row">
+        <div class="col-6">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Puppose" formControlName="purpose" />
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field class="example-full-width">
+                <mat-label>Manage By </mat-label>
+                <mat-select formControlName="memberId" name="member">
+                    <mat-option disabled="true"> Pick One</mat-option>
+                    <mat-option *ngFor="let member of members" [value]="member.id">
+                        {{member.firstName}} {{member.lastName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Amount</mat-label>
+                <input matInput placeholder="Amount" type="number" formControlName="amount" />
+            </mat-form-field>
+        </div>
+        <div class="col-4" >
+           <div class="example-full-width">
+            <mat-slide-toggle formControlName="isDeduction">Is Deduction</mat-slide-toggle>
+          
+           </div>
+                <!-- <input matInput placeholder="Amount" type="number" formControlName="amount" /> -->
+                
+        </div>
+       
+
+        <div class="col-4">
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Fund Date</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="fundDate" value="fundDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+        </div>
+    </div>
+
+
+    <div class="button-wrapper" align="end">
+
+        <button mat-flat-button color="warn" (click)="cancel()">Cancel</button> &nbsp;
+        <button mat-flat-button color="primary" (click)="submit()" [disabled]="fundForm.invalid">Submit</button>
+    </div>
+</form>

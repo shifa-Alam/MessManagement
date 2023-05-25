@@ -62,6 +62,8 @@ import { DateAdapter, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/mate
 import { DatePipe } from '@angular/common';
 import { ReportLandingComponent } from './report-landing/report-landing.component';
 import { MealAddRangeComponent } from './meal-add-range/meal-add-range.component';
+import { FundLandingComponent } from './fund-landing/fund-landing.component';
+import { FundAddComponent } from './fund-add/fund-add.component';
 
 
 
@@ -81,7 +83,9 @@ import { MealAddRangeComponent } from './meal-add-range/meal-add-range.component
     BazarLandingComponent,
     BazarAddComponent,
     ReportLandingComponent,
-    MealAddRangeComponent
+    MealAddRangeComponent,
+    FundLandingComponent,
+    FundAddComponent
   ],
   imports: [
 
@@ -103,6 +107,9 @@ import { MealAddRangeComponent } from './meal-add-range/meal-add-range.component
       { path: 'expences', component: BazarLandingComponent },
       { path: 'expences/add', component: BazarAddComponent },
       { path: 'reports', component: ReportLandingComponent },
+
+      { path: 'funds', component: FundLandingComponent },
+      { path: 'funds/add', component: FundAddComponent },
 
       { path: '**', component: NotFoundComponent }
 

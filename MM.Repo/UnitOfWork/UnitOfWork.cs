@@ -18,12 +18,19 @@ namespace MM.Repo
             MealR = new MealRepo(_context);
             MemberR = new MemberRepo(_context);
             BazarR = new BazarRepo(_context);
+            FundR = new FundRepo(_context);
         }
         public IMealRepo MealR
         {
             get;
             private set;
         }
+        public IFundRepo FundR
+        {
+            get;
+            private set;
+        }
+
         public IBazarRepo BazarR
         {
             get;

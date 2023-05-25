@@ -22,8 +22,8 @@ namespace MM.Repo
             IQueryable<Member> queryResult = context.Members;
 
             queryResult = queryResult.Where(e =>
-            (!string.IsNullOrEmpty(filter.MemberName) ? (e.FirstName.Contains(filter.MemberName) || e.LastName.Contains(filter.MemberName)) : true)
-                    && (!string.IsNullOrEmpty(filter.MobileNumber) ? (e.MobileNumber.Contains(filter.MobileNumber)) : true));
+                                     (!string.IsNullOrEmpty(filter.MemberName) ? (e.FirstName.Contains(filter.MemberName) || e.LastName.Contains(filter.MemberName)) : true)
+                                    && (!string.IsNullOrEmpty(filter.MobileNumber) ? (e.MobileNumber.Contains(filter.MobileNumber)) : true) && e.Active==true);
 
             var pagedData = queryResult.ToPagedList(filter.PageNumber, filter.PageSize);
             return pagedData;

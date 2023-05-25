@@ -10,10 +10,10 @@ const httpOptions = {
 })
 export class BaseService {
 
-  baseUrl = "https://localhost:44458/";
+  // baseUrl = "https://localhost:44458/";
 
   //prod
-  // baseUrl = "http://localhost:5000/";
+  baseUrl = "http://localhost:5000/";
 
 
 

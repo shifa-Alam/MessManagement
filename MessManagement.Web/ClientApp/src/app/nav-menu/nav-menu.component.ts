@@ -38,7 +38,8 @@ export class NavMenuComponent  implements OnInit,OnDestroy{
       'members',
       'meals',
       "expences",
-      "reports"
+      "reports",
+      "funds"
     ];
   }
  

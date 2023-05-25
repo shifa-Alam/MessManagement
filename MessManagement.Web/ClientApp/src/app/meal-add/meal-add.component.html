@@ -1,7 +1,7 @@
 <form [formGroup]="mealForm">
     <div class="row">
         <div class="col-4">
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Member</mat-label>
                 <mat-select formControlName="memberId" name="member">
                     <mat-option disabled="true"> Pick One</mat-option>
@@ -19,7 +19,7 @@
         </div>
         <div class="col-4">
            
-            <mat-form-field appearance="fill">
+            <mat-form-field class="example-full-width">
                 <mat-label>Meal Date</mat-label>
                 <input matInput [matDatepicker]="picker1" formControlName="mealDate" value="mealDate">
                 <mat-hint>MM/DD/YYYY</mat-hint>
