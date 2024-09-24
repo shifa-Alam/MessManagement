@@ -14,17 +14,6 @@ export class NavMenuComponent  implements OnInit,OnDestroy{
     console.log( this.mobileQuery);
   }
 
-  // isExpanded = false;
-
-  // collapse() {
-  //   this.isExpanded = false;
-  // }
-
-  // toggle() {
-  //   this.isExpanded = !this.isExpanded;
-  // }
-
-
   mobileQuery: MediaQueryList;
 
 
@@ -43,11 +32,9 @@ export class NavMenuComponent  implements OnInit,OnDestroy{
     ];
   }
  
-
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener("change",this._mobileQueryListener);
   }
-
 
 }
 

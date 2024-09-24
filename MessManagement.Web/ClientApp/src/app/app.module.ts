@@ -64,6 +64,7 @@ import { ReportLandingComponent } from './report-landing/report-landing.componen
 import { MealAddRangeComponent } from './meal-add-range/meal-add-range.component';
 import { FundLandingComponent } from './fund-landing/fund-landing.component';
 import { FundAddComponent } from './fund-add/fund-add.component';
+import { MealAddMultipleComponent } from './meal-add-multiple/meal-add-multiple.component';
 
 
 
@@ -85,7 +86,8 @@ import { FundAddComponent } from './fund-add/fund-add.component';
     ReportLandingComponent,
     MealAddRangeComponent,
     FundLandingComponent,
-    FundAddComponent
+    FundAddComponent,
+    MealAddMultipleComponent
   ],
   imports: [
 
@@ -115,9 +117,9 @@ import { FundAddComponent } from './fund-add/fund-add.component';
 
 
     ]),
-    BrowserAnimationsModule,
     BrowserModule,
     BrowserAnimationsModule,
+
     MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
