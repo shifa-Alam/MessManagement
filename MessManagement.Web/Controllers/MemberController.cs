@@ -113,13 +113,13 @@ namespace MessManagement.Web.Controllers
                 var memberwiseMeal = _mealService.GetByMemberIdAndDateRange(member.Id, newStartDate, newEndDate);
                 var memberwiseExpense = _bazarService.GetByMemberIdAndDateRange(member.Id, newStartDate, newEndDate);
 
-                memberReport.MealCount = memberwiseMeal.Sum(e => e.Quantity);
+                memberReport.MealCount = (double)memberwiseMeal.Sum(e => e.Quantity);
                 memberReport.ExpenceAmount = memberwiseExpense.Sum(e => e.Amount);
 
                 memberReports.Add(memberReport);
 
 
-                report.TotalMeal += memberwiseMeal.Sum(e => e.Quantity);
+                report.TotalMeal += (double)memberwiseMeal.Sum(e => e.Quantity);
                 report.TotalExpence += memberwiseExpense.Sum(e => e.Amount);
 
             }
